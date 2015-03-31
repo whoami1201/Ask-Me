@@ -88,3 +88,39 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| Q&A Custom Filters
+|--------------------------------------------------------------------------
+*/
+
+Route::filter('user', function($route,$request){
+	if (Sentry::check()) {
+		// is logged in
+	} else {
+		return Redirect::route('index')->with('error','You need to log in first');
+	}
+});
+
+Route::filter('is_guest', function($route,$request){
+	if (!Sentry::check()) {
+		// is a guest
+	} else {
+		return Redirect::route('index')->with('error','You are already logged in');
+	}
+});
+
+Route::filter('access_check', function($route,$request,$right){
+	if (Sentry::check()) {
+
+		if (Sentry::getUser()->hasAccess($right)) {
+			// logged in and can access
+		} else {
+			return Redirect::route('index')->with('error','You don\'t have enough priviliges to access that page');
+		}
+		
+	} else {
+		return Redirect::route('index')->with('error','You need to log in first');
+	}
+});

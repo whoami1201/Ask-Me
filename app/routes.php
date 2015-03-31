@@ -11,7 +11,50 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+/**
+* This method is to create an admin once.
+* Just run it once, and then remove or comment it out.
+**/
+// Route::get('create_user',function()
+// {
+// 	$user = Sentry::getUserProvider()->create(array( 
+// 		'email' => 'admin@admin.com',
+// 		//password will be hased upon creation by Sentry 2
+// 		'password' => 'password',
+// 		'first_name' => 'Admin',
+// 		'last_name' => 'Laravel',
+// 		'activated' => 1,
+// 		'permissions' => array (
+// 			'admin' => 1
+// 			)
+// 	));
+// 	return 'admin created with id of '.$user->id;
+// });
+
+// Auth Resource
+Route::get('signup', array(
+	'as'=>'signup_form', 
+	'before' => 'is_guest',
+	'uses'=>'AuthController@getSignup'
+	));
+Route::post('signup', array(
+	'as'=>'signup_form_post',
+	'before' => 'csrf|is_guest',
+	'uses' => 'AuthController@postSignup'
+	));
+Route::post('login', array(
+	'as'=>'login_post', 
+	'before' => 'csrf| is_guest',
+	'uses' => 'AuthController@postLogin'
+	));
+Route::get('logout', array(
+	'as' => 'logout',
+	'before' => 'user',
+	'uses' => 'AuthController@getLogout'
+	));
+
+//--- Q&A Resources
+Route::get('/', array(
+	'as'=>'index',
+	'uses' => 'HomeController@getIndex'
+	));
