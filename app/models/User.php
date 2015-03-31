@@ -8,4 +8,9 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 		'password' => 'required|min:6',
 		're_password' => 'required|same:password'
 		);
+
+	public static $login_rules = array(
+		'email' => 'required|email|exists:users,email',
+		'password' => 'required|min:6'
+		);
 }

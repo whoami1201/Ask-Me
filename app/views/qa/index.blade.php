@@ -1,5 +1,5 @@
 @extends('template_masterpage')
 
 @section('content')
-	Heyyyy
+	You're at Home
 @stop

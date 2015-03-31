@@ -40,9 +40,58 @@ class AuthController extends \BaseController {
 			->withInput(Input::except('password','re_password'))
 			->with('error',$validation->errors()->first());
 		}
-
-
 	}
+
+	/**
+	* Login POST method Resource
+	**/
+	public function postLogin() {
+		// validate the form
+		$validation = Validator::make(Input::all(), User::$login_rules);
+
+		// if validation fails, return to index page with error message
+		if ($validation->fails()) {
+			return Redirect::route('index')
+			->withInput(Input::except('password'))
+			->with('topError', $validation->error()->first());
+		} else {
+			// if okay, authenticate user
+			try{
+				// Set login credentials
+				$credentials = array(
+				'email' =>Input::get('email'),
+				'password' => Input::get('password')
+				);
+				// Try authenticate user, remember me is set to false
+				$user = Sentry::authenticate($credentials, false);
+				return Redirect::route('index')->with('success','You\'ve logged in successfully!');
+			} catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+				return Redirect::route('index')    
+				->withInput(Input::except('password'))->with('topError','Login field is required.');
+			} catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {      
+				return Redirect::route('index')
+				->withInput(Input::except('password'))->with('topError','Password field is required.');
+			} catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {      
+				return Redirect::route('index')
+				->withInput(Input::except('password'))->with('topError','Wrong password, try again.');
+			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {      
+				return Redirect::route('index')
+				->withInput(Input::except('password'))->with('topError','User not found.');
+			} catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {      
+				return Redirect::route('index')
+				->withInput(Input::except('password'))->with('topError','User not activated.');
+			}
+		}
+	}
+
+	/**
+	* Logout method
+	**/
+	public function getLogout(){
+		Sentry::logout();
+		return Redirect::route('index')->with('success','You\'ve successfully logged out!');
+	}
+
 
 
 }

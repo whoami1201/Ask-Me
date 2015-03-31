@@ -44,7 +44,7 @@
             <ul class="nav navbar-right">
                 <li>
                     <p class="navbar-btn">
-                        {{HTML::link('signup_form','Register', array('class' => 'btn btn-info'))}}    
+                        {{HTML::link('signup','Register', array('class' => 'btn btn-info'))}}    
                     </p>
                 </li>
             </ul>
