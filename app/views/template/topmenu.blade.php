@@ -1,9 +1,12 @@
 {{-- Top error (about login etc.) --}}
 @if(Session::has('topError'))
-	<div class="centerfix" id="infobar">
+<!-- 	<div class="centerfix" id="infobar">
 		<div class="centercontent">
 			{{ Session::get('topError') }}
 		</div>
+	</div> -->
+	<div class="alert alert-danger" role="alert">
+		<p class="text-center">{{ Session::get('topError') }}</p>
 	</div>
 @endif
 

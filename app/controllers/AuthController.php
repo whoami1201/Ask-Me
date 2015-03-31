@@ -53,7 +53,7 @@ class AuthController extends \BaseController {
 		if ($validation->fails()) {
 			return Redirect::route('index')
 			->withInput(Input::except('password'))
-			->with('topError', $validation->error()->first());
+			->with('topError', $validation->errors()->first());
 		} else {
 			// if okay, authenticate user
 			try{
