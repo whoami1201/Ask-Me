@@ -30,59 +30,59 @@ class QuestionsController extends \BaseController {
 				'title' => Input::get('title'),
 				'question' => Input::get('question')
 				));
-		}
 
-		// Get the insert id of question
-		$insert_id = $create->id;
+			// Get the insert id of question
+			$insert_id = $create->id;
 
-		// Find the question to attach the tag
-		$question = Question::find($insert_id);
+			// Find the question to attach the tag
+			$question = Question::find($insert_id);
 
-		// Check if tags column is filled, split strings, add new tag and relation
-		if (Str::length(Input::get('tags'))) {
-			// 'explode' all tags from commnas
-			$tags_array = explode(',', Input::get('tags'));
+			// Check if tags column is filled, split strings, add new tag and relation
+			if (Str::length(Input::get('tags'))) {
+				// 'explode' all tags from commnas
+				$tags_array = explode(',', Input::get('tags'));
 
-			// Check new tag to add to database and attach to new question
-			if (count($tags_array)) {
-				foreach ($tags_array as $tag) {
-					// Get rid of blank spaces
-					$tag = trim($tag);
+				// Check new tag to add to database and attach to new question
+				if (count($tags_array)) {
+					foreach ($tags_array as $tag) {
+						// Get rid of blank spaces
+						$tag = trim($tag);
 
-					// Double check length for commas (tag1,,tag2)
-					// Check slugged version for meaningless characters
-					// (tag1,(#*@(*#,tag2)))
-					if (Str::length(Str::slug($tag))) {
-						// URL-friendly version of the tag
-						$tag_friendly = Str::slug($tag);
+						// Double check length for commas (tag1,,tag2)
+						// Check slugged version for meaningless characters
+						// (tag1,(#*@(*#,tag2)))
+						if (Str::length(Str::slug($tag))) {
+							// URL-friendly version of the tag
+							$tag_friendly = Str::slug($tag);
 
-						// Check if already exist in database
-						$tag_check = Tag::where('tag_friendly',$tag_friendly);
+							// Check if already exist in database
+							$tag_check = Tag::where('tag_friendly',$tag_friendly);
 
-						if ($tag_check->count()==0) {
-							$tag_info = Tag::create(array(
-								'tag'=>$tag,
-								'tag_friendly'=> $tag_friendly
-								));
-						} else {
-							$tag_info = $tag_check->first();
+							if ($tag_check->count()==0) {
+								$tag_info = Tag::create(array(
+									'tag'=>$tag,
+									'tag_friendly'=> $tag_friendly
+									));
+							} else {
+								$tag_info = $tag_check->first();
+							}
 						}
+
+						$question->tags()->attach($tag_info->id);
 					}
-
-					$question->tags()->attach($tag_info->id);
 				}
-			}
 
-			return Redirect::route('ask')
-			->with('success',
-				'Your question has been created successfully. '.
-				HTML::linkRoute('question_details','Check it out!', array(
-					'id'=> $insert_id,
-					'title'=> Str::slug($question->title)
-					)));
+				return Redirect::route('ask')
+				->with('success',
+					'Your question has been created successfully. '.
+					HTML::linkRoute('question_details','Check it out!', array(
+						'id'=> $insert_id,
+						'title'=> Str::slug($question->title)
+						)));
+			}
 		} else {
 			return Redirect::route('ask')
-			->withInput()->with('error',$validation->errors()-first());
+			->withInput()->with('error',$validation->errors()->first());
 		}
 
 	}

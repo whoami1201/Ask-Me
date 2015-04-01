@@ -3,7 +3,7 @@
 class Question extends Eloquent {
 	protected $fillable = array('title', 'user_id', 'question','viewed','answered','votes');
 	public static $add_rules = array(
-		'title'=>'required|min:2',
+		'title'=>'required|min:6',
 		'question'=>'required|min:10'
 		);
 	// Create relations with User table

@@ -12,17 +12,19 @@
 	@include('template.topmenu')
 
 	<div class="container">
-		@if(Session::has('error'))
-			<div class="alert alert-danger" role="alert">
-				<p class="text-center">{{ Session::get('error') }}</p>
-			</div>
-		@endif
+		<div class="margin-bottom-10">
+			@if(Session::has('error'))
+				<div class="alert alert-danger" role="alert">
+					<p class="text-center">{{ Session::get('error') }}</p>
+				</div>
+			@endif
 
-		@if(Session::has('success'))
-			<div class="alert alert-success" role="alert">
-				<p class="text-center">{{ Session::get('success') }}</p>
-			</div>
-		@endif
+			@if(Session::has('success'))
+				<div class="alert alert-success" role="alert">
+					<p class="text-center">{{ Session::get('success') }}</p>
+				</div>
+			@endif
+		</div>
 		@yield('content')
 	</div>
 
