@@ -13,4 +13,9 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 		'email' => 'required|email|exists:users,email',
 		'password' => 'required|min:6'
 		);
+
+	// Create relation with Question table
+	public function questions() {
+		return $this->hasMany('Question','user_id');
+	}
 }

@@ -1,0 +1,21 @@
+body {
+	background: url('../images/bg-1920.jpg') no-repeat center center fixed;
+}
+
+.padding-top-15 {
+	padding-top:15px;
+}
+
+.alert {
+	margin-bottom: 0;
+}
+
+.navbar-btn {
+	margin-left:4px;
+}
+
+@media(max-width:768px){
+	.mobile-fix {
+		text-align: center;
+	}
+}

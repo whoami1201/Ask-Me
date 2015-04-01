@@ -58,3 +58,19 @@ Route::get('/', array(
 	'as'=>'index',
 	'uses' => 'HomeController@getIndex'
 	));
+
+Route::get('ask',array(
+	'as'=>'ask',
+	'before'=>'user',
+	'uses'=>'QuestionsController@getNew'
+	));
+Route::post('ask',array(
+	'as'=>'ask_post',
+	'before'=>'user|csrf',
+	'uses'=>'QuestionsController@postNew'
+	));
+
+Route::get('question/{id}/{title}', array(
+	'as'=>'question_details',
+	'uses'=>'QuestionsController@getDetails'
+	))->where(array('id'=>'[0-9]+', 'title'=>'[0-9a-zA-Z\-\_]+'));

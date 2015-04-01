@@ -1,10 +1,5 @@
 {{-- Top error (about login etc.) --}}
 @if(Session::has('topError'))
-<!-- 	<div class="centerfix" id="infobar">
-		<div class="centercontent">
-			{{ Session::get('topError') }}
-		</div>
-	</div> -->
 	<div class="alert alert-danger" role="alert">
 		<p class="text-center">{{ Session::get('topError') }}</p>
 	</div>
@@ -21,8 +16,9 @@
       </button>
       {{HTML::linkRoute('index','Laravel Ask Me',null, array('class' => 'navbar-brand'))}}  
     </div>
-    @if(!Sentry::check())
-        <div id="navbar" class="navbar-collapse collapse">
+    <div id="navbar" class="navbar-collapse collapse">
+    	@if(!Sentry::check())
+        
           	{{Form::open(array(
           		'route'=>'login_post',
           		'class'=>'navbar-form navbar-right'
@@ -51,14 +47,18 @@
                     </p>
                 </li>
             </ul>
-    	</div><!--/.navbar-collapse-->
-    @else
-        <ul class="nav navbar-nav navbar-right">
-        	<li><span class="navbar-text">Hello again, {{HTML::link('#',Sentry::getUser()->first_name)}}!</span></li>
-        	<li><p class="navbar-btn">
-        		{{HTML::linkRoute('logout','Logout',null ,array('class' => 'btn btn-warning'))}}    
-                </p></li>
-        </ul>
-    @endif
+    	@else
+            <ul class="nav navbar-nav navbar-right">
+            	<li class="mobile-fix"><span class="navbar-text">Hello again, {{HTML::link('#',Sentry::getUser()->first_name)}}!</span></li>
+              <li class="mobile-fix"><p class="navbar-btn">
+                {{HTML::linkRoute('ask','Ask question',null,array('class'=>'btn btn-primary'))}}
+              </p></li>
+            	<li class="mobile-fix"><p class="navbar-btn">
+            		{{HTML::linkRoute('logout','Logout',null ,array('class' => 'btn btn-warning'))}}    
+                    </p></li>
+            </ul>
+    	@endif
+    </div><!--/.navbar-collapse-->
+    
   </div>
 </nav>

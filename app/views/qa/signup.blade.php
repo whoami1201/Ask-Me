@@ -1,8 +1,9 @@
 @extends('template_masterpage')
 
 @section('content')
+<div class="well">
 	<div class="row text-center">
-		<h1 class="text-primary">Sign up!</h1>
+		<h1 class="text-primary">Sign up</h1>
 		<p>Please fill all the credentials correctly to register to our site</p>
 	</div>
 	<div class="row">
@@ -58,4 +59,5 @@
 		{{Form::button('Done!', array('class'=>'btn btn-success center-block', 'type'=>'submit'))}}
 		{{Form::close()}}
 	</div>
+</div>
 @stop
