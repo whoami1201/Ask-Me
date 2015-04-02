@@ -8,7 +8,7 @@
 </head>
 <body>
 	{{--We include the top menu view here--}}
-
+	<div class="blurred-background">
 	@include('template.topmenu')
 
 	<div class="container">
@@ -27,7 +27,7 @@
 		</div>
 		@yield('content')
 	</div>
-
+	</div>
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 <!-- 	{{ HTML::script('assets/js/plugin.js') }}
@@ -36,6 +36,7 @@
 
 	{{-- Each page's custom assets (if available) will be yeiled here --}}
 	@yield('footer_assets')
+
 	
 </body>
 </html>

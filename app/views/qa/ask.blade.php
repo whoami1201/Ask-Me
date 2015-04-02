@@ -24,12 +24,12 @@
 				</div>
 				<div class="form-group">
 				    <label for="asknew-tag" class="control-label">Tags </label>
-				    <p class="help-block"><strong>Hint: </strong>You can use commas to split tags (tag1, tag2, etc.). To join multiple words in a tag, use '-' in between (tag-name).</p>
 				    {{Form::text('tags', Input::old('tags'), array(
 				    	'class' => 'fullinput form-control',
 				    	'id' => 'asknew-tag',
 				    	'placeholder' => 'laravel, javascript-noob'
 				    	))}}
+				    <p class="help-block"><strong>Hint: </strong>You can use commas to split tags (tag1, tag2, etc.). To join multiple words in a tag, use '-' in between (tag-name).</p>	
 				</div>
 				{{Form::button('Ask this question', array(
 				'class'=>'btn btn-success',
