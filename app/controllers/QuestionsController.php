@@ -62,18 +62,21 @@ class QuestionsController extends \BaseController {
 						$question->tags()->attach($tag_info->id);
 					}
 				}
-				return Redirect::route('ask')
-				->with('success',
-					'Your question has been created successfully. '.
-					HTML::linkRoute('question_details','Check it out!', array(
-						'id'=> $insert_id,
-						'title'=> Str::slug($question->title)
-						)));
 			}
-		} else {
 			return Redirect::route('ask')
-			->withInput()->with('error',$validation->errors()->first());
+			->with('success',
+				'Your question has been created successfully. '.
+				HTML::linkRoute('question_details','Check it out!', array(
+					'id'=> $insert_id,
+					'title'=> Str::slug($question->title)
+					)));
+		} else {
+			return ('fail');
+			// return Redirect::route('ask')
+			// ->withInput()->with('error',$validation->errors()->first());
 		}
+
+		return 'yo';
 	}
 	 /** 
          * Details page 
