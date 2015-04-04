@@ -3,13 +3,25 @@
 body {
 	background: url('../images/bg-1920.jpg') no-repeat center center fixed;
 }
-
+em {
+	font-style: italic;
+}
 .padding-top-15 {
 	padding-top:15px;
 }
 
 .margin-bottom-10 {
 	margin-bottom: 10px;
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid #D7D7D7;
+}
+
+.title {
+	font-size: 25px;
 }
 
 .alert {
@@ -24,4 +36,14 @@ body {
 	.mobile-fix {
 		text-align: center;
 	}
+}
+
+.qhead{
+	font-weight: bold;
+	color:blue;
+	font-size: 150%;
+
+}
+.cntbox{
+	color: #3E5161;
 }

@@ -8,25 +8,26 @@
 </head>
 <body>
 	{{--We include the top menu view here--}}
-	<div class="blurred-background">
 	@include('template.topmenu')
 
 	<div class="container">
-		<div class="margin-bottom-10">
-			@if(Session::has('error'))
+		@if(Session::has('error'))
+			<div class="margin-bottom-10">
+			
 				<div class="alert alert-danger" role="alert">
 					<p class="text-center">{{ Session::get('error') }}</p>
 				</div>
-			@endif
+			</div>
+		@endif
 
-			@if(Session::has('success'))
+		@if(Session::has('success'))
+			<div class="margin-bottom-10">
 				<div class="alert alert-success" role="alert">
 					<p class="text-center">{{ Session::get('success') }}</p>
 				</div>
-			@endif
-		</div>
+			</div>
+		@endif
 		@yield('content')
-	</div>
 	</div>
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
@@ -36,7 +37,29 @@
 
 	{{-- Each page's custom assets (if available) will be yeiled here --}}
 	@yield('footer_assets')
+	 {{-- if the user is logged in and on index or question details   
 
+      page--}} 
+
+    @if(Sentry::check() && (Route::currentRouteName() ==   
+
+      'index' || Route::currentRouteName() == 'question_details')) 
+
+      <script type="text/javascript"> 
+
+        $('.questions .arrowbox .like, .questions .arrowbox .dislike').click(function(e){ 
+          e.preventDefault();
+          var $this = $(this);
+          $.get($(this).attr('href'),function($data){ 
+            $this.parent('.arrowbox').next('.cntbox').find  
+              ('.cntcount').text($data); 
+          }).fail(function(){ 
+            alert('An error has been occurred, please try again later'); 
+          }); 
+        }); 
+      </script> 
+
+    @endif 
 	
 </body>
 </html>

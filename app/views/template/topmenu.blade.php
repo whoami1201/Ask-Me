@@ -5,7 +5,7 @@
 	</div>
 @endif
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-static-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -54,7 +54,7 @@
                 {{HTML::linkRoute('ask','Ask question',null,array('class'=>'btn btn-primary'))}}
               </p></li>
             	<li class="mobile-fix"><p class="navbar-btn">
-            		{{HTML::linkRoute('logout','Logout',null ,array('class' => 'btn btn-warning'))}}    
+            		{{HTML::linkRoute('logout','Log out',null ,array('class' => 'btn btn-warning'))}}    
                     </p></li>
             </ul>
     	@endif
