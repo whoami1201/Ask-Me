@@ -1,6 +1,41 @@
 @extends('template_masterpage')
 
 @section('content')
+<div class="row">
+<div class="col-md-4">
+	<div class="well">
+		<h3 class="text-primary">Already a member?</h3>
+			{{Form::open(array(
+				'route'=>'login_post'
+				))}}
+		  <div class="form-group">
+		    {{Form::email('email', Input::old('email'), array(
+		    	'placeholder' => 'E-mail',
+		    	'class'=>'form-control')
+		    	)}}
+		  </div>
+		  <div class="form-group">
+		    {{Form::password('password', array(
+		    	'placeholder' =>'Password',
+		    	'class' => 'form-control'))}}
+		  </div>
+		  <div class="checkbox">
+		  	<label>
+		  		<input type="checkbox">Remember me
+		  	</label>
+
+		  </div>
+		  {{Form::button('Log in',array(
+		  	'type'=>'submit',
+		  	'class'=>'btn btn-success'
+		  	))}}
+		  
+		  {{Form::close()}}
+		  <hr>
+		  <a href="#">Forgot your password?</a>
+	</div>
+</div>
+<div class="col-md-8">
 <div class="well">
 	<div class="row text-center">
 		<h1 class="text-primary">Sign up</h1>
@@ -59,5 +94,7 @@
 		{{Form::button('Done!', array('class'=>'btn btn-success center-block', 'type'=>'submit'))}}
 		{{Form::close()}}
 	</div>
+</div>
+</div>
 </div>
 @stop

@@ -1,7 +1,5 @@
 @extends('template_masterpage') 
 
-
-
 @section('content')
 <?php 
 
@@ -15,164 +13,109 @@ $created_at = $question->created_at;
 
 ?> 
 <div class="row">
+
     <div class="col-md-7 col-md-offset-2">
-        <div class="well"> 
-            <div>
-                <div>
+        <div class="well">
+
+            <div class="row">
+                <div class="col-md-12">
+
                     <strong><span class="title">{{$question->title}}</span></strong>
-                    <p ><em>Asked by <a href="#">{{$asker->first_name.' '.$question->
-                    users->last_name}}</a>
-                    <span> on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em></p>
-                    <div>{{$question->question}} </div>
-                    <hr>
-                    <div>Viewed {{$question->viewed}} time{{$question->viewed>1?'s':''}}.</div>
-                    <div>{{count($question->answers)}} answers</div>
-                    
+                    <p><em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
+                      <span> on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
+                  </p>
+                  <div>{{nl2br($question->question)}}</div>
+
                 </div>
+            </div>
+
+            <hr>
+
+            <div class="row mobile-fix">
+
+                <div class="col-md-8 col-sm-5 margin-bottom-10">
+                    <small>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</small>
+                    <small>{{count($question->answers)}} answer{{$question->answers>1?'s':''}}</small>
+                </div>
+
                 @if(Sentry::check())
-                  <div> 
-                    {{HTML::linkRoute('vote','Upvote',array('up',$question->id)  
-                    ,array('class'=>'like', 'title'=>'Upvote'))}} 
-                    {{HTML::linkRoute('vote','Downvote',array('down',  
-                    $question->id),array('class'=>'dislike','title'=>  
-                    'Downvote'))}} 
-                  </div> 
+
+                <div class="col-md-4 col-sm-7 vote-section"> 
+                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                        {{HTML::linkRoute('vote','I like this!',array('up',$question->id)  
+                        ,array('class'=>'btn btn-primary like', 'title'=>'Upvote'))}}
+
+                        <button type="button" class="btn btn-default vote-count">{{$question->votes}}</button>
+
+                        {{HTML::linkRoute('vote','Meh',array('down',
+                        $question->id),array('class'=>'btn btn-warning dislike','title'=>  
+                        'Downvote'))}}
+                    </div>
+                </div>
+
                 @endif
+
             </div>
         </div>
     </div>
 </div>
 
-@if(Sentry::check()) 
+      {{-- if the user/admin is logged in, we will have a   
 
-    <div class="col-md-1 col-xs-1 col-lg-1"> 
-      {{HTML::linkRoute('vote','',array('up',$question->id)  
-      ,array('class'=>'', 'title'=>'Upvote'))}} 
-      <br>
-      {{HTML::linkRoute('vote','',array('down',  
-      $question->id),array('class'=>'dislike glyphicon glyphicon-thumbs-down','title'=>  
-      'Downvote'))}} 
-    </div> 
+      buttons section --}} 
 
-@endif 
+      @if(Sentry::check()) 
 
+      <div class="qwrap"> 
 
+          <ul class="fastbar"> 
 
-{{-- class will differ on the situation --}} 
+            @if(Sentry::getUser()->hasAccess('admin')) 
+            <li class="close">{{HTML::linkRoute(  
 
-@if($question->votes > 0) 
+              'delete_question','delete',$question->id)}}  
 
-<div class="col-md-1 col-xs-1 col-lg-1 cntgreen"> 
+          </li> 
 
-  @elseif($question->votes == 0) 
-
-  <div class="col-md-1 col-xs-1 col-lg-1"> 
-
-      @else 
-
-      <div class="col-md-1 col-xs-1 col-lg-1 cntred"> 
           @endif 
 
-          <div class="cntcount">{{$question->votes}}</div> 
+          <li class="answer glyphicon glyphicon-comment"><a href="#">Answer</a></li>
+          {{-- <li class="answer"><a href="#">answer</a></li> --}} 
 
-          <div class="cnttext">vote</div> 
-
-      </div>
-      <div class="rblock col-md-8 col-xs-8 col-lg-8"> 
-
-        <div class="rbox"> 
-
-          <p>{{($question->question)}}</p> 
-
-      </div> 
-
-      <div class="row">
-          <div class="container">
-            <div class="qinfo">Asked by <a href="#">  
-
-              {{$question->users->first_name.' '.$question->  
-
-              users->last_name}}</a> around {{date('m/d/Y   
-
-              H:i:s',strtotime($question->created_at))}}</div>
-          </div>
-      </div> 
-
-
-
-      {{--if the question has tags, show them --}} 
-
-      @if($question->tags!=null) 
-
-      <ul class="qtagul"> 
-
-        @foreach($question->tags as $tag) 
-
-        <li>{{HTML::linkRoute('tagged',$tag->tag,  
-
-            $tag->tagFriendly)}}</li> 
-
-            @endforeach 
-
-        </ul> 
-
-        @endif 
-        {{-- if the user/admin is logged in, we will have a   
-
-        buttons section --}} 
-
-        @if(Sentry::check()) 
-
-        <div class="qwrap"> 
-
-            <ul class="fastbar"> 
-
-              @if(Sentry::getUser()->hasAccess('admin')) 
-              <li class="close">{{HTML::linkRoute(  
-
-                  'delete_question','delete',$question->id)}}  
-
-              </li> 
-
-              @endif 
-
-              <li class="answer glyphicon glyphicon-comment"><a href="#">Answer</a></li>
-              {{-- <li class="answer"><a href="#">answer</a></li> --}} 
-
-          </ul> 
-
-      </div> 
-
-      @endif 
+      </ul> 
 
   </div> 
 
+  @endif 
 
-  {{-- if it's a user, we will also have the answer block   
+</div> 
 
-  inside our view--}} 
 
-  @if(Sentry::check()) 
+{{-- if it's a user, we will also have the answer block   
 
-  <div class="rrepol" id="replyarea" style=  
+inside our view--}} 
 
-  "margin-bottom:10px"> 
+@if(Sentry::check()) 
 
-  {{Form::open(array('route'=>array(  
+<div class="rrepol" id="replyarea" style=  
 
-  'question_reply',$question->id,  
+"margin-bottom:10px"> 
 
-  Str::slug($question->title))))}} 
+{{Form::open(array('route'=>array(  
 
-  <p class="minihead">Provide your Answer:</p> 
+'question_reply',$question->id,  
 
-  {{Form::textarea('answer',Input::old('answer'),  
+Str::slug($question->title))))}} 
 
-  array('class'=>'fullinput'))}} 
+<p class="minihead">Provide your Answer:</p> 
 
-  {{Form::submit('Answer the Question!')}} 
+{{Form::textarea('answer',Input::old('answer'),  
 
-  {{Form::close()}} 
+array('class'=>'fullinput'))}} 
+
+{{Form::submit('Answer the Question!')}} 
+
+{{Form::close()}} 
 
 </div> 
 
@@ -228,26 +171,26 @@ simple show/hide button --}}
 
 {{-- If the admin is logged in, make a confirmation to   
 
-    delete attempt --}} 
+  delete attempt --}} 
 
-    @if(Sentry::check()) 
+  @if(Sentry::check()) 
 
-    @if(Sentry::getUser()->hasAccess('admin')) 
+  @if(Sentry::getUser()->hasAccess('admin')) 
 
-    <script type="text/javascript"> 
+  <script type="text/javascript"> 
 
-      $('li.close a').click(function(){ 
+    $('li.close a').click(function(){ 
 
-        return confirm('Are you sure you want to delete   
+      return confirm('Are you sure you want to delete   
 
-          this? There is no turning back!'); 
+        this? There is no turning back!'); 
 
-    }); 
+  }); 
 
-  </script> 
+</script> 
 
-  @endif 
+@endif 
 
-  @endif 
+@endif 
 
-  @stop 
+@stop 

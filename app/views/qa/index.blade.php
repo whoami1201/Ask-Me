@@ -55,23 +55,22 @@ $tags = $question->tags;
 
 		@if($question->votes > 0) 
 
-		<div class="cntbox well col-sm-1 col-md-1 col-lg-1"> 
+		      <div class="cntbox well col-sm-1 col-md-1 col-lg-1"> 
 
-			@elseif($question->votes == 0) 
+		@elseif($question->votes == 0) 
 
-			<div class="cntbox well cntgreen col-sm-1 col-md-1 col-lg-1"> 
+                  <div class="cntbox well cntgreen col-sm-1 col-md-1 col-lg-1"> 
 
-				@else 
+		@else 
+                  <div class="cntbox cntred well col-sm-1 col-md-1 col-lg-1"> 
 
-				<div class="cntbox cntred well col-sm-1 col-md-1 col-lg-1"> 
+		@endif 
 
-					@endif 
+                        <div class="cntcount">{{$question->votes}}</div> 
 
-					<div class="cntcount">{{$question->votes}}</div> 
+				<div class="cnttext">vote</div> 
 
-					<div class="cnttext">vote</div> 
-
-				</div> 
+			</div> 
 
 
 
