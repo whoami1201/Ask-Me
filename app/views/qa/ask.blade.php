@@ -2,7 +2,10 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-9">
+		<div class="col-md-2">
+			@include('template.col-left')
+		</div>
+		<div class="col-md-7">
 			<div class="well">
 				<h1>Ask a question</h1>
 				<p>Note: If you think your question's been answered correctly, please don't forget to mark the answer as "correct".</p>
