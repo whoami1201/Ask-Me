@@ -44,66 +44,76 @@ $created_at = $question->created_at;
             <div class="row mobile-fix">
 
                 <!-- View and answer count -->
-                <div class="col-md-8 col-sm-5 margin-bottom-10">
-                    <small>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</small>
-                    <small>{{count($question->answers)}} answer{{$question->answers>1?'s':''}}</small>
+                <div class="col-md-5 col-sm-5 margin-top-5 text-muted">
+                    <span>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</span>
+                    <span>{{count($question->answers)}} answer{{$question->answers>1?'s':''}}</span>
                 </div>
 
                 <!-- Upvote and downvote function for users -->
                 @if(Sentry::check())
 
-                <div class="col-md-4 col-sm-7 vote-section"> 
-                    <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                    
-                        {{HTML::linkRoute('vote','I like this!',array('up',$question->id)  
-                        ,array('class'=>'btn btn-primary like', 'title'=>'Upvote'))}}
+                    <div class="col-md-7 col-sm-7 vote-section"> 
 
-                        <button type="button" class="btn btn-default vote-count">{{$question->votes}}</button>
+                            <a href="#" class="text-muted margin-side-10" id="comment">Comment</a>
+                        
+                            <a href="#" class="text-muted margin-side-10">Share</a>
 
-                        {{HTML::linkRoute('vote','Meh',array('down',
-                        $question->id),array('class'=>'btn btn-warning dislike','title'=>  
-                        'Downvote'))}}
+                            {{HTML::linkRoute('vote','Downvote',array('down',
+                                $question->id),array('class'=>'text-muted margin-side-10 dislike','title'=>  
+                                'Downvote'))}}
+
+                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                            
+                                {{HTML::linkRoute('vote','I like this!',array('up',$question->id)  
+                                ,array('class'=>'btn btn-primary like', 'title'=>'Upvote'))}}
+
+
+                                <button type="button" class="btn btn-default vote-count">{{$question->votes}}</button>
+
+                            </div>
+                        
                     </div>
-                </div>
+
+                <!-- Sign in link for guest -->
+                @else 
+
+                    <div class="col-md-4 col-sm-7"> 
+                        {{HTML::link('signup','Log in to answer')}}
+                    </div>
 
                 @endif
             </div>
-            {{-- if it's a user, we will also have the answer block   
 
-            inside our view--}} 
-
+            <!-- Answer block -->
+            {{-- if it's a user, we will also have the answer block inside our view--}} 
             @if(Sentry::check()) 
-            <li class="answer glyphicon glyphicon-comment"><a href="#">Answer</a></li>
-            {{-- <li class="answer"><a href="#">answer</a></li> --}} 
+                <div class="row margin-top-10">
+                    <div class="rrepol col-md-12" id="replyarea"> 
 
-            <div class="rrepol" id="replyarea" style=  
+                        {{Form::open(array('route'=>array(  
+                            'question_reply',
+                            $question->id,
+                            Str::slug($question->title)
+                            )))}} 
 
-            "margin-bottom:10px"> 
+                        @if(Sentry::getUser()->hasAccess('admin')) 
 
-            {{Form::open(array('route'=>array(  
+                            <li class="close">{{HTML::linkRoute('delete_question','delete',$question->id)}}</li> 
 
-            'question_reply',$question->id,  
+                        @endif
 
-            Str::slug($question->title))))}} 
+                        <div class="form-group">
+                            {{Form::textarea('answer',Input::old('answer'),array(
+                                'class'=>'fullinput form-control',
+                                'placeholder'=>'Type your comment here..',
+                                'rows'=>'4'
+                                ))}} 
+                        </div>
+                        {{Form::button('Comment', array('class'=>'btn btn-success', 'type'=>'submit'))}}
+                        {{Form::close()}} 
 
-            @if(Sentry::getUser()->hasAccess('admin')) 
-                <li class="close">{{HTML::linkRoute('delete_question','delete',$question->id)}}  
-
-                </li> 
-
-            @endif 
-
-            <p class="minihead">Provide your Answer:</p> 
-
-            {{Form::textarea('answer',Input::old('answer'),  
-
-            array('class'=>'fullinput'))}} 
-
-            {{Form::submit('Answer the Question!')}} 
-
-            {{Form::close()}} 
-
-            </div> 
+                    </div>
+                </div> 
 
             @endif 
         </div>
@@ -118,70 +128,42 @@ $created_at = $question->created_at;
 
 
 @stop 
+
+
 @section('footer_assets') 
 
-
-
-{{--If it's a user, hide the answer area and make a   
-
-simple show/hide button --}} 
+{{--If it's a user, hide the answer area and make a simple show/hide button --}} 
 @if(Sentry::check()) 
 
-<script type="text/javascript"> 
+    <script type="text/javascript"> 
+        
+        var $replyarea = $('div#replyarea'); 
+        $replyarea.hide(); 
 
+        $('#comment').click(function(e){ 
+            e.preventDefault(); 
+            
+            if($replyarea.is(':hidden')) { 
+                $replyarea.fadeIn('fast'); 
+            } else { 
+                $replyarea.fadeOut('fast'); 
+            } 
+        }); 
 
+    </script> 
 
-    var $replyarea = $('div#replyarea'); 
+    {{-- If the admin is logged in, make a confirmation to delete attempt --}} 
+    @if(Sentry::getUser()->hasAccess('admin')) 
 
-    $replyarea.hide(); 
+        <script type="text/javascript"> 
+            $('li.close a').click(function(){ 
+          
+                return confirm('Are you sure you want to delete this? There is no turning back!'); 
 
+            }); 
+        </script> 
 
-
-    $('li.answer a').click(function(e){ 
-
-      e.preventDefault(); 
-
-
-
-      if($replyarea.is(':hidden')) { 
-
-        $replyarea.fadeIn('fast'); 
-
-    } else { 
-
-        $replyarea.fadeOut('fast'); 
-
-    } 
-
-}); 
-
-</script> 
-
-@endif 
-
-
-
-{{-- If the admin is logged in, make a confirmation to   
-
-  delete attempt --}} 
-
-  @if(Sentry::check()) 
-
-  @if(Sentry::getUser()->hasAccess('admin')) 
-
-  <script type="text/javascript"> 
-
-    $('li.close a').click(function(){ 
-
-      return confirm('Are you sure you want to delete   
-
-        this? There is no turning back!'); 
-
-  }); 
-
-</script> 
-
-@endif 
+    @endif
 
 @endif 
 

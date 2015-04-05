@@ -6,6 +6,18 @@ body {
 em {
 	font-style: italic;
 }
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid #D7D7D7;
+}
+
+textarea {
+	resize:none;
+}
+a:hover {
+	text-decoration: none;
+}
 .padding-top-15 {
 	padding-top:15px;
 }
@@ -14,11 +26,19 @@ em {
 	margin-bottom: 10px;
 }
 
-hr {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	border-top: 1px solid #D7D7D7;
+.margin-top-10 {
+	margin-top:10px;
 }
+
+.margin-top-5 {
+	margin-top:5px;
+}
+.margin-side-10 {
+	margin-left:10px;
+	margin-right: 10px;
+}
+
+
 
 .title {
 	font-size: 25px;

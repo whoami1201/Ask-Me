@@ -29,6 +29,7 @@
 		@endif
 		@yield('content')
 	</div>
+	
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 <!-- 	{{ HTML::script('assets/js/plugin.js') }}
