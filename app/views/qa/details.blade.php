@@ -13,19 +13,28 @@ $created_at = $question->created_at;
 
 ?> 
 <div class="row">
+    <!--================================LEFT COLUMN==================================-->
+    <div class="col-md-2">
+        @include('template.col-left')
+    </div>
 
-    <div class="col-md-7 col-md-offset-2">
+    <!--=================================MAIN COLUMN==================================-->
+    <div class="col-md-7">
         <div class="well">
 
             <div class="row">
                 <div class="col-md-12">
-
+                    <!-- Question's title -->
                     <strong><span class="title">{{$question->title}}</span></strong>
+
+                    <!-- Asked by ... -->
                     <p>
                         <em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
-                          <span>on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
-                      </p>
-                      <div>{{nl2br($question->question)}}</div>
+                        <span>on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
+                    </p>
+
+                    <!-- Question's content -->
+                    <div>{{nl2br($question->question)}}</div>
 
                 </div>
             </div>
@@ -34,15 +43,18 @@ $created_at = $question->created_at;
 
             <div class="row mobile-fix">
 
+                <!-- View and answer count -->
                 <div class="col-md-8 col-sm-5 margin-bottom-10">
                     <small>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</small>
                     <small>{{count($question->answers)}} answer{{$question->answers>1?'s':''}}</small>
                 </div>
 
+                <!-- Upvote and downvote function for users -->
                 @if(Sentry::check())
 
                 <div class="col-md-4 col-sm-7 vote-section"> 
                     <div class="btn-group btn-group-xs" role="group" aria-label="...">
+                    
                         {{HTML::linkRoute('vote','I like this!',array('up',$question->id)  
                         ,array('class'=>'btn btn-primary like', 'title'=>'Upvote'))}}
 
@@ -56,77 +68,54 @@ $created_at = $question->created_at;
 
                 @endif
             </div>
+            {{-- if it's a user, we will also have the answer block   
+
+            inside our view--}} 
+
+            @if(Sentry::check()) 
+            <li class="answer glyphicon glyphicon-comment"><a href="#">Answer</a></li>
+            {{-- <li class="answer"><a href="#">answer</a></li> --}} 
+
+            <div class="rrepol" id="replyarea" style=  
+
+            "margin-bottom:10px"> 
+
+            {{Form::open(array('route'=>array(  
+
+            'question_reply',$question->id,  
+
+            Str::slug($question->title))))}} 
+
+            @if(Sentry::getUser()->hasAccess('admin')) 
+                <li class="close">{{HTML::linkRoute('delete_question','delete',$question->id)}}  
+
+                </li> 
+
+            @endif 
+
+            <p class="minihead">Provide your Answer:</p> 
+
+            {{Form::textarea('answer',Input::old('answer'),  
+
+            array('class'=>'fullinput'))}} 
+
+            {{Form::submit('Answer the Question!')}} 
+
+            {{Form::close()}} 
+
+            </div> 
+
+            @endif 
         </div>
     </div>
+
+    <!--============================RIGHT COLUMN======================================-->
     <div class="col-md-3">
         @include('template.col-right')
     </div>
+
 </div>
 
-      {{-- if the user/admin is logged in, we will have a   
-
-      buttons section --}} 
-
-      @if(Sentry::check()) 
-
-      <div class="qwrap"> 
-
-          <ul class="fastbar"> 
-
-            @if(Sentry::getUser()->hasAccess('admin')) 
-            <li class="close">{{HTML::linkRoute(  
-
-              'delete_question','delete',$question->id)}}  
-
-          </li> 
-
-          @endif 
-
-          <li class="answer glyphicon glyphicon-comment"><a href="#">Answer</a></li>
-          {{-- <li class="answer"><a href="#">answer</a></li> --}} 
-
-      </ul> 
-
-  </div> 
-
-  @endif 
-
-</div> 
-
-
-{{-- if it's a user, we will also have the answer block   
-
-inside our view--}} 
-
-@if(Sentry::check()) 
-
-<div class="rrepol" id="replyarea" style=  
-
-"margin-bottom:10px"> 
-
-{{Form::open(array('route'=>array(  
-
-'question_reply',$question->id,  
-
-Str::slug($question->title))))}} 
-
-<p class="minihead">Provide your Answer:</p> 
-
-{{Form::textarea('answer',Input::old('answer'),  
-
-array('class'=>'fullinput'))}} 
-
-{{Form::submit('Answer the Question!')}} 
-
-{{Form::close()}} 
-
-</div> 
-
-@endif 
-
-
-
-</div> 
 
 @stop 
 @section('footer_assets') 
