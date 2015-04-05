@@ -21,15 +21,16 @@ $created_at = $question->created_at;
                 <div class="col-md-12">
 
                     <strong><span class="title">{{$question->title}}</span></strong>
-                    <p><em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
-                      <span> on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
-                  </p>
-                  <div>{{nl2br($question->question)}}</div>
+                    <p>
+                        <em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
+                          <span>on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
+                      </p>
+                      <div>{{nl2br($question->question)}}</div>
 
                 </div>
             </div>
 
-            <hr>
+              <hr>
 
             <div class="row mobile-fix">
 
@@ -54,9 +55,11 @@ $created_at = $question->created_at;
                 </div>
 
                 @endif
-
             </div>
         </div>
+    </div>
+    <div class="col-md-3">
+        @include('template.col-right')
     </div>
 </div>
 
