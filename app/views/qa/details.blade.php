@@ -36,6 +36,20 @@ $created_at = $question->created_at;
                     <!-- Question's content -->
                     <div>{{nl2br($question->question)}}</div>
 
+                    <!-- Tags -->
+                    {{--if the question has tags, show them --}}
+                    @if($question->tags!=null) 
+
+                      <div>
+                        <span class="text-muted">Tags:</span> 
+                        @foreach($question->tags as $tag) 
+
+                          <span>{{HTML::linkRoute('tagged',$tag->tag,$tag->tagFriendly)}}</span> 
+
+                        @endforeach 
+                      </div> 
+
+                    @endif
                 </div>
             </div>
 
@@ -55,12 +69,12 @@ $created_at = $question->created_at;
                     <div class="col-md-7 col-sm-7 vote-section"> 
 
                             <a href="#" class="text-muted margin-side-10" id="comment">Comment</a>
-                        
                             <a href="#" class="text-muted margin-side-10">Share</a>
 
-                            {{HTML::linkRoute('vote','Downvote',array('down',
-                                $question->id),array('class'=>'text-muted margin-side-10 dislike','title'=>  
-                                'Downvote'))}}
+                            {{HTML::linkRoute('vote','Downvote',array('down',$question->id),array(
+                                'class'=>'text-muted margin-side-10 dislike',
+                                'title'=> 'Downvote'
+                                ))}}
 
                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                             
@@ -77,7 +91,7 @@ $created_at = $question->created_at;
                 <!-- Sign in link for guest -->
                 @else 
 
-                    <div class="col-md-4 col-sm-7"> 
+                    <div class="col-md-4 col-sm-7 col-md-offset-3 margin-top-5"> 
                         {{HTML::link('signup','Log in to answer')}}
                     </div>
 
@@ -142,7 +156,7 @@ $created_at = $question->created_at;
 
         $('#comment').click(function(e){ 
             e.preventDefault(); 
-            
+
             if($replyarea.is(':hidden')) { 
                 $replyarea.fadeIn('fast'); 
             } else { 

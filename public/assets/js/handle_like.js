@@ -4,7 +4,7 @@ $('.vote-section .dislike').click(function(e){
     e.preventDefault();
     var $temp = $(this);
     $.get($temp.attr('href'),function($data){
-        $temp.prevUntil('.vote-section').find('.vote-count').text($data);
+        $temp.next().find('.vote-count').text($data);
     }).fail(function(){ 
         alert('An error has been occurred, please try again later'); 
     }); 
