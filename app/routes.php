@@ -34,55 +34,77 @@ Route::get('signup', array(
 	'before' => 'is_guest',
 	'uses'=>'AuthController@getSignup'
 	));
+
 Route::post('signup', array(
 	'as'=>'signup_form_post',
 	'before' => 'csrf|is_guest',
 	'uses' => 'AuthController@postSignup'
 	));
+
 Route::post('login', array(
 	'as'=>'login_post', 
 	'before' => 'csrf| is_guest',
 	'uses' => 'AuthController@postLogin'
 	));
+
 Route::get('logout', array(
 	'as' => 'logout',
 	'before' => 'user',
 	'uses' => 'AuthController@getLogout'
 	));
+
 //--- Q&A Resources
+//------HOMEPAGE--------
 Route::get('/', array(
 	'as'=>'index',
 	'uses' => 'HomeController@getIndex'
 	));
+
+//------ASK--------
 Route::get('ask',array(
 	'as'=>'ask',
 	'before'=>'user',
 	'uses'=>'QuestionsController@getNew'
 	));
+
 Route::post('ask',array(
 	'as'=>'ask_post',
 	'before'=>'user|csrf',
 	'uses'=>'QuestionsController@postNew'
 	));
+
+//------BROWSE--------
+Route::get('browse',array(
+	'as'=>'browse',
+	'uses'=>'HomeController@getBrowse'
+	));
+
+//------QUESTION DETAILS-------
 Route::get('question/{id}/{title}', array(
 	'as'=>'question_details',
 	'uses'=>'QuestionsController@getDetails'
 	))->where(array('id'=>'[0-9]+', 'title'=>'[0-9a-zA-Z\-\_]+'));
- //Upvoting and Downvoting 
+
+
+//------FUNCTIONS---------------
+//Upvoting and Downvoting 
 Route::get('question/vote/{direction}/{id}',array('as'=>   
       'vote', 'before'=>'user', 'uses'=>   
       'QuestionsController@getvote'))->where   
       (array('direction'=>'(up|down)', 'id'=>'[0-9]+')); 
-    //Question tags page 
+
+//Question tags page 
 Route::get('question/tagged/{tag}',array('as'=>  
       'tagged','uses'=>'QuestionsController@getTaggedWith'))->  
       where('tag','[0-9a-zA-Z\-\_]+'); 
-      //Reply Question: 
+
+//Reply Question
 Route::post('question/{id}/{title}',array('as'=>  
       'question_reply','before'=>'csrf|user',   
       'uses'=>'AnswersController@postReply'))->  
       where(array('id'=>'[0-9]+','title'=>'[0-9a-zA-Z\-\_]+')); 
-    //Admin Question Deletion 
+
+//Admin Question Deletion 
 Route::get('question/delete/{id}',array('as'=>'  
       delete_question','before'=>'access_check:admin',  
       'uses'=>'QuestionsController@getDelete'))->  

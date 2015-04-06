@@ -18,8 +18,8 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li class="active">{{HTML::linkRoute('index','Browse')}}</li>
-            <li><a href="#">Random</a></li>
+            <li class="{{HTML::active('browse')}}">{{HTML::linkRoute('browse','Browse')}}</li>
+            <li class="{{HTML::active('random')}}"><a href="#">Random</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -44,7 +44,7 @@
     	@if(!Sentry::check())
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <p class="navbar-btn">
+                    <p  class="navbar-btn">
                         {{HTML::link('signup','Register', array('class' => 'btn btn-info'))}}    
                     </p>
                 </li>
@@ -70,11 +70,10 @@
                             'type'=>'submit',
                             'class'=>'btn btn-success margin-top-5'
                             ))}}
-                          <div class="checkbox">
+                          <span class="checkbox">
                             <label><input type="checkbox">  Remember me</label>
-                          </div>
+                          </span>
                           {{Form::close()}}
-                          <li class="divider"></li>
                           <li><a href="#">Forgot your password?</a></li>
                     </ul>
                 </li> 

@@ -79,3 +79,15 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+/*
+|--------------------------------------------------------------------------
+| HELPER HTML Macro
+|--------------------------------------------------------------------------
+*/
+
+// Set active page
+HTML::macro('active', function($uri)
+{
+	return Request::is($uri) ? 'active' : '';
+});

@@ -1,5 +1,5 @@
 <div class="well">
-	<h2>Browse</h2>
+	<h2>Category</h2>
 	<div><a href="#">Auto</a></div>
 	<div><a href="#">Computer</a></div>
 	<div><a href="#">Photography</a></div>

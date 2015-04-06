@@ -17,13 +17,16 @@ class HomeController extends BaseController {
 
 	public function getIndex() { 
 
-      return View::make('qa.index') 
+    	return View::make('qa.index');
 
-        ->with('title','Hot Questions!') 
+    }
 
-        ->with('questions',Question::with('users','tags')->  
+    public function getBrowse() {
+    	return View::make('qa.browse')
+    	->with('title','Browse questions')
+    	->with('questions',Question::with('users','tags')
+    		->orderBy('id','desc')->paginate(4));
+    }
 
-          orderBy('id','desc')->paginate(4)); 
 
-     } 
 }

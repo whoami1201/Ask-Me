@@ -2,6 +2,7 @@
 
 body {
 	background: url('../images/bg-1920.jpg') no-repeat center center fixed;
+	height:100vh;
 }
 em {
 	font-style: italic;
@@ -38,8 +39,6 @@ a:hover {
 	margin-right: 10px;
 }
 
-
-
 .title {
 	font-size: 25px;
 }
@@ -51,6 +50,30 @@ a:hover {
 .navbar-btn {
 	margin-left:4px;
 }
+.container {
+	height:75%;
+}
+
+.cover-wrapper {
+	max-height: 100%;
+	color: white;
+}
+
+.inner{
+	margin-top:16%;
+}
+	.inner h1 {
+		font-size:80px;
+	}
+
+	.inner p {
+		font-size: 30px;
+	}
+
+	.inner a {
+		font-size:20px;
+	}
+
 
 @media(max-width:768px){
 	.mobile-fix {
