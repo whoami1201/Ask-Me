@@ -2,7 +2,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<title> {{ isset($title) ? $title.' | ' : '' }} Laravel Ask Me </title>
-	<link rel="shortcut icon" href="{{{ asset('assets/images/favicon.ico') }}}">
+	<link rel="shortcut icon" href="{{{ asset('assets/images/rubik.ico') }}}">
 	<link href="{{ asset('assets/css/reset.css')}}" rel="stylesheet">
 	<link href="{{ asset('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 	{{ HTML::style('assets/css/style.css') }}

@@ -74,6 +74,10 @@ a:hover {
 		font-size:20px;
 	}
 
+	.inner .btn {
+		padding: 12px 30px;
+	}
+
 
 @media(max-width:768px){
 	.mobile-fix {
