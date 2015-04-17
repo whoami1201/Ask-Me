@@ -13,52 +13,71 @@ $created_at = $question->created_at;
 
 ?> 
 <div class="row">
-    <!--================================LEFT COLUMN==================================-->
-    <div class="col-md-2">
-        @include('template.col-left')
-    </div>
 
     <!--=================================MAIN COLUMN==================================-->
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="well">
 
             <div class="row">
+                
+                
                 <div class="col-md-12">
                     <!-- Question's title -->
-                    <strong><span class="title">{{$question->title}}</span></strong>
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-2">
+                        <strong><span class="title">{{$question->title}}</span></strong>
+                    
+                        <!-- Asked by ... -->
+                        <p>
+                            <em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
+                            <span>on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
+                        </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="text-center">
+                                <div class="row">
+                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                </div>
+                                <div class="row">
+                                    <h4 class="text-muted">200</h4>
+                                </div>
+                                <div class="row">
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10 col-sm-10 col-xs-10">
+                            <!-- Question's content -->
+                            <div>{{nl2br($question->question)}}</div>
 
-                    <!-- Asked by ... -->
-                    <p>
-                        <em>Asked by <a href="#">{{$asker->first_name.' '.$question->users->last_name}}</a>
-                        <span>on {{ $created_at->format('d M \'y') }} at {{ $created_at->format('H:i') }}</span></em>
-                    </p>
+                            <!-- Tags -->
+                            {{--if the question has tags, show them --}}
+                            @if($question->tags!=null) 
 
-                    <!-- Question's content -->
-                    <div>{{nl2br($question->question)}}</div>
+                              <div>
+                                <span class="text-muted">Tags:</span> 
+                                @foreach($question->tags as $tag) 
 
-                    <!-- Tags -->
-                    {{--if the question has tags, show them --}}
-                    @if($question->tags!=null) 
+                                  <span>{{HTML::linkRoute('tagged',$tag->tag,$tag->tagFriendly)}}</span> 
 
-                      <div>
-                        <span class="text-muted">Tags:</span> 
-                        @foreach($question->tags as $tag) 
+                                @endforeach 
+                              </div> 
 
-                          <span>{{HTML::linkRoute('tagged',$tag->tag,$tag->tagFriendly)}}</span> 
-
-                        @endforeach 
-                      </div> 
-
-                    @endif
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
 
               <hr>
 
             <div class="row mobile-fix">
-
+                <div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2">
                 <!-- View and answer count -->
-                <div class="col-md-5 col-sm-5 margin-top-5 text-muted">
+                <div class="col-md-5 col-sm-5 text-muted">
                     <span>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</span>
                     <span>{{count($question->answers)}} answer{{$question->answers>1?'s':''}}</span>
                 </div>
@@ -66,25 +85,12 @@ $created_at = $question->created_at;
                 <!-- Upvote and downvote function for users -->
                 @if(Sentry::check())
 
-                    <div class="col-md-7 col-sm-7 vote-section"> 
+                    <div class="col-md-7 col-sm-7"> 
 
                             <a href="#" class="text-muted margin-side-10" id="comment">Comment</a>
                             <a href="#" class="text-muted margin-side-10">Share</a>
 
-                            {{HTML::linkRoute('vote','Downvote',array('down',$question->id),array(
-                                'class'=>'text-muted margin-side-10 dislike',
-                                'title'=> 'Downvote'
-                                ))}}
-
-                            <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                            
-                                {{HTML::linkRoute('vote','I like this!',array('up',$question->id)  
-                                ,array('class'=>'btn btn-primary like', 'title'=>'Upvote'))}}
-
-
-                                <button type="button" class="btn btn-default vote-count">{{$question->votes}}</button>
-
-                            </div>
+                            <a href="#" class="text-muted margin-side-10">Favourite</a>
                         
                     </div>
 
@@ -96,13 +102,14 @@ $created_at = $question->created_at;
                     </div>
 
                 @endif
+                </div>
             </div>
 
             <!-- Answer block -->
             {{-- if it's a user, we will also have the answer block inside our view--}} 
             @if(Sentry::check()) 
                 <div class="row margin-top-10">
-                    <div class="rrepol col-md-12" id="replyarea"> 
+                    <div class="rrepol col-md-10 col-md-offset-2" id="replyarea"> 
 
                         {{Form::open(array('route'=>array(  
                             'question_reply',

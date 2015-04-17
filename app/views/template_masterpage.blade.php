@@ -31,13 +31,6 @@
 			@yield('content')
 		</div>
 	</div>
-	<!-- <div class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<div class="navbar-text">
-				Hello
-			</div>			
-		</div>
-	</div> -->
 	<footer class="footer">
 		<div class="container padding-top-15 text-center">
 			<div class="text-muted pull-left">@ Metropolia 2015, by team25.</div>
