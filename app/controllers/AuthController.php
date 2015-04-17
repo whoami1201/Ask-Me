@@ -33,7 +33,7 @@ class AuthController extends \BaseController {
 				'email'=>Input::get('email'),
 				'password' =>Input::get('password')
 				));
-			return Redirect::route('browse')->with('success','You\'ve signed up and logged in successfully!');
+			return Redirect::route('index')->with('success','You\'ve signed up and logged in successfully!');
 		} else {
 			// If failed, return the form with error message
 			return Redirect::route('signup_form')
@@ -51,36 +51,37 @@ class AuthController extends \BaseController {
 
 		// if validation fails, return to browse page with error message
 		if ($validation->fails()) {
-			return Redirect::route('browse')
+			return Redirect::route('signup_form')
 			->withInput(Input::except('password'))
 			->with('topError', $validation->errors()->first());
 		} else {
 			// if okay, authenticate user
-			try{
-				// Set login credentials
-				$credentials = array(
-				'email' =>Input::get('email'),
-				'password' => Input::get('password')
-				);
-				// Try authenticate user, remember me is set to false
-				$user = Sentry::authenticate($credentials, false);
-				return Redirect::route('browse')->with('success','You\'ve logged in successfully!');
-			} catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
-				return Redirect::route('browse')    
+			try {
+					// Set login credentials
+					$credentials = array(
+					'email' =>Input::get('email'),
+					'password' => Input::get('password')
+					);
+					// Try authenticate user, remember me is set to false
+					$user = Sentry::authenticate($credentials, false);
+					return Redirect::route('browse')->with('success','You have logged in successfully.');
+
+				} catch (Cartalyst\Sentry\Users\LoginRequiredException $e) {
+				return Redirect::route('signup_form')    
 				->withInput(Input::except('password'))->with('topError','Login field is required.');
-			} catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {      
-				return Redirect::route('browse')
-				->withInput(Input::except('password'))->with('topError','Password field is required.');
-			} catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {      
-				return Redirect::route('browse')
-				->withInput(Input::except('password'))->with('topError','Wrong password, try again.');
-			} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {      
-				return Redirect::route('browse')
-				->withInput(Input::except('password'))->with('topError','User not found.');
-			} catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {      
-				return Redirect::route('browse')
-				->withInput(Input::except('password'))->with('topError','User not activated.');
-			}
+				} catch (Cartalyst\Sentry\Users\PasswordRequiredException $e) {      
+					return Redirect::route('signup_form')
+					->withInput(Input::except('password'))->with('topError','Password field is required.');
+				} catch (Cartalyst\Sentry\Users\WrongPasswordException $e) {      
+					return Redirect::route('signup_form')
+					->withInput(Input::except('password'))->with('topError','Wrong password, please try again.');
+				} catch (Cartalyst\Sentry\Users\UserNotFoundException $e) {      
+					return Redirect::route('signup_form')
+					->withInput(Input::except('password'))->with('topError','User not found.');
+				} catch (Cartalyst\Sentry\Users\UserNotActivatedException $e) {      
+					return Redirect::route('signup_form')
+					->withInput(Input::except('password'))->with('topError','User not activated.');
+				}
 		}
 	}
 
@@ -89,7 +90,7 @@ class AuthController extends \BaseController {
 	**/
 	public function getLogout(){
 		Sentry::logout();
-		return Redirect::route('browse')->with('success','You\'ve successfully logged out!');
+		return Redirect::route('browse')->with('success','You\'ve successfully logged out. See you around!');
 	}
 
 

@@ -97,9 +97,9 @@ Route::filter('csrf', function()
 
 Route::filter('user', function($route,$request){
 	if (Sentry::check()) {
-		// is logged in
+		// is a user
 	} else {
-		return Redirect::route('index')->with('error','You need to log in first');
+		return Redirect::route('signup_form')->with('error','You are not a member yet. Join us!');
 	}
 });
 
@@ -121,6 +121,6 @@ Route::filter('access_check', function($route,$request,$right){
 		}
 		
 	} else {
-		return Redirect::route('index')->with('error','You need to log in first');
+		return Redirect::route('signup_form')->with('error','You need to log in first');
 	}
 });

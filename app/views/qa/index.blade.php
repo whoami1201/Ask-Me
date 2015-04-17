@@ -10,7 +10,7 @@
                   tempor incididunt ut labore et dolore magna aliqua.
             </p>
 
-            {{HTML::link('signup','Ask something', array('class'=>'btn btn-success margin-top-10'))}}
+            {{HTML::link('ask','Ask something', array('class'=>'btn btn-default margin-top-10'))}}
       </div>
 </div>
 
