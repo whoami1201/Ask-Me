@@ -1,8 +1,13 @@
-
+html {
+	position:relative;
+	min-height: 100%;
+}
 
 body {
 	background: url('../images/bg-1920.jpg') no-repeat center center fixed;
-	height:100vh;
+	height:100%;
+	margin:0;
+	padding:0;
 }
 em {
 	font-style: italic;
@@ -53,10 +58,23 @@ a:hover {
 .container {
 	height:75%;
 }
+.content-wrapper {
+	padding-bottom: 60px;
+	margin-bottom: 20px;
+}
 
 .cover-wrapper {
 	max-height: 100%;
 	color: white;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
 }
 
 .inner{
@@ -75,9 +93,12 @@ a:hover {
 	}
 
 
-@media(max-width:768px){
+@media(max-width:1367px){
 	.mobile-fix {
 		text-align: center;
+	}
+	.inner {
+		margin-top:10%;
 	}
 }
 

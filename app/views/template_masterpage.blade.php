@@ -10,26 +10,44 @@
 <body>
 	{{--We include the top menu view here--}}
 	@include('template.topmenu')
-
-	<div class="container">
-		@if(Session::has('error'))
-			<div class="margin-bottom-10">
-			
-				<div class="alert alert-danger" role="alert">
-					<p class="text-center">{{ Session::get('error') }}</p>
+	<div class="content-wrapper">
+		<div class="container">
+			@if(Session::has('error'))
+				<div class="margin-bottom-10">
+				
+					<div class="alert alert-danger" role="alert">
+						<p class="text-center">{{ Session::get('error') }}</p>
+					</div>
 				</div>
-			</div>
-		@endif
+			@endif
 
-		@if(Session::has('success'))
-			<div class="margin-bottom-10">
-				<div class="alert alert-success" role="alert">
-					<p class="text-center">{{ Session::get('success') }}</p>
+			@if(Session::has('success'))
+				<div class="margin-bottom-10">
+					<div class="alert alert-success" role="alert">
+						<p class="text-center">{{ Session::get('success') }}</p>
+					</div>
 				</div>
-			</div>
-		@endif
-		@yield('content')
+			@endif
+			@yield('content')
+		</div>
 	</div>
+	<!-- <div class="navbar navbar-default navbar-fixed-bottom">
+		<div class="container">
+			<div class="navbar-text">
+				Hello
+			</div>			
+		</div>
+	</div> -->
+	<footer class="footer">
+		<div class="container padding-top-15 text-center">
+			<div class="text-muted pull-left">@ Metropolia 2015, by team25.</div>
+			<div class="pull-right">
+			<iframe id="iframe-footer"src="http://ghbtns.com/github-btn.html?user=ruathudo&repo=ask-me&type=fork&count=true"
+			            allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe>
+			</div>            
+		</div>
+	</footer>
+
 	
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
