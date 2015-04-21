@@ -4,7 +4,6 @@
 
 @section('content') 
 
-<h1>{{$title}}</h1> 
 
 @if(count($questions)) 
 
@@ -27,9 +26,19 @@ $tags = $question->tags;
 
 
 <div class="well questions"> 
+      <h1>{{$title}}</h1>
       <div class="row">
 	{{-- Guests cannot see the vote arrows --}} 
-            <div class="container">
+      
+
+      <div class="col col-md-8">
+            <div class="well">
+                  
+            </div>
+      </div>
+      </div>
+      <div class="row">
+      <div class="container">
 	@if(Sentry::check()) 
 
 	<div class="arrowbox well col-sm-1 col-md-1 col-lg-1"> 
@@ -106,7 +115,8 @@ $tags = $question->tags;
 
             			around {{date('m/d/Y H:i:s',  
 
-            			strtotime($question->created_at))}}</div> 
+            			strtotime($question->created_at))}}
+                        </div> 
 
             			@if($tags!=null) 
 
@@ -124,10 +134,10 @@ $tags = $question->tags;
             			
 
             			@endif 
-                        </div>
-            		</div> {{-- end of row --}}
-                        </div>
-            	</div> 
+            </div>
+      </div> {{-- end of row --}}
+      </div>
+      </div> 
 
             	@endforeach 
 
@@ -147,6 +157,7 @@ $tags = $question->tags;
 
             	@endif 
 
-
+                  </div>
+                  </div>
 
             	@stop 

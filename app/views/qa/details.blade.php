@@ -24,7 +24,7 @@ $created_at = $question->created_at;
                 <div class="col-md-12">
                     <!-- Question's title -->
                     <div class="row">
-                        <div class="col-md-10 col-md-offset-2">
+                        <div class="col-md-12">
                         <strong><span class="title">{{$question->title}}</span></strong>
                     
                         <!-- Asked by ... -->
@@ -42,7 +42,7 @@ $created_at = $question->created_at;
                                     <span class="glyphicon glyphicon-chevron-up"></span>
                                 </div>
                                 <div class="row">
-                                    <h4 class="text-muted">200</h4>
+                                    <h4 class="text-muted"><strong><?php echo rand(-5, 10);?></strong></h4>
                                 </div>
                                 <div class="row">
                                     <span class="glyphicon glyphicon-chevron-down"></span>
@@ -97,7 +97,7 @@ $created_at = $question->created_at;
                 <!-- Sign in link for guest -->
                 @else 
 
-                    <div class="col-md-4 col-sm-7 col-md-offset-3 margin-top-5"> 
+                    <div class="col-md-4 col-sm-7 col-md-offset-3"> 
                         {{HTML::link('signup','Log in to answer')}}
                     </div>
 
