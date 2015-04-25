@@ -7,7 +7,7 @@
 <?php if ($paginator->getLastPage() > 1): ?>
 	<ul class="pager">
 		<?php
-			echo $presenter->getPrevious($trans->trans('pagination.previous'));
+//			echo $presenter->getPrevious($trans->trans('pagination.previous'));
 
 			echo $presenter->getNext($trans->trans('pagination.next'));
 		?>

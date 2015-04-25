@@ -98,9 +98,6 @@ a:hover {
 		padding: 12px 30px;
 	}
 
-.affix {
-	left:67%;
-}
 @media(max-width:768px){
 	.mobile-fix {
 		text-align: center;

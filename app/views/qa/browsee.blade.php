@@ -10,18 +10,10 @@
 				<h1>{{$title}}</h1>
 				<div id="browse-questions">
 					{{-- QUESTION LIST --}}
-					@if(count($questions)) 
+					@if(count($questions))
 
 						@foreach($questions as $question)
-						<?php 
 
-						//Question's asker and tags info 
-
-						$asker = $question->users; 
-
-						$tags = $question->tags;
-
-						?>
 							<div class="row well" >
 								<div class="col-md-1 col-sm-1 col-xs-1">
 									<div class="text-center">
@@ -50,7 +42,7 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-										<p>By <a href="#">{{$asker->first_name}}</a> 
+										<p>By <a href="#">{{$question->users->first_name}}</a>
 										around {{date('m/d/Y H:i:s',strtotime($question->created_at))}}</p>
 										</div>
 									</div>
@@ -64,7 +56,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col col-md-4">
+		<div class="col col-md-3">
 			@include('template.col-right')
 		</div>
 	</div>
@@ -74,15 +66,11 @@
 	<script>
 		$('#browse-questions').jscroll({
 	        autoTrigger: false,
-	        nextSelector: '.pagination li.active + li a', 
+	        nextSelector: '.pager li a',
 	        contentSelector: 'div#browse-questions',
 	        callback: function() {
 	            $('ul.pagination:visible:first').hide();
 	        }
-        });
-        $(function() {
-            var $affixElement = $('div[data-spy="affix"]');
-            $affixElement.width($affixElement.parent().width());
         });
 	</script>
 @stop
