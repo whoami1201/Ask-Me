@@ -25,7 +25,7 @@ class HomeController extends BaseController {
     	return View::make('qa.browsee')
     	->with('title','All questions')
     	->with('questions',Question::with('users','tags')
-    		->orderBy('id','desc')->paginate(4));
+    		->orderBy('id','desc')->simplePaginate(4));
     }
 
 

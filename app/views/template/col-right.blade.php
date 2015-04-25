@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
 	<h2>Explore</h2>
 	<h3>Related questions</h3>
 	<p>

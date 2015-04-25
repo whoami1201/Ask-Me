@@ -44,6 +44,7 @@
 	
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
+	{{ HTML::script('assets/js/jquery.jscroll.min.js') }}
 <!-- 	{{ HTML::script('assets/js/plugin.js') }}
 	{{ HTML::script('assets/js/script.js') }} -->
 	{{ HTML::script('assets/bootstrap/js/bootstrap.min.js') }}

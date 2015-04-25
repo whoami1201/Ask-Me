@@ -80,7 +80,7 @@
             </ul>
     	@else
             <ul class="nav navbar-nav navbar-right">
-            	<li class="mobile-fix"><span class="navbar-text">Hello again, 
+            	<li class="mobile-fix"><span class="navbar-text">Hello, 
                 {{HTML::link('#',Sentry::getUser()->first_name)}}!</span></li>
                 <li class="mobile-fix">
                     <p class="navbar-btn">
