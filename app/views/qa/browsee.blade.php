@@ -66,6 +66,7 @@
 	<script>
 		$('#browse-questions').jscroll({
 	        autoTrigger: false,
+            loadingHtml: '<img src="{{asset('assets/images/loading.gif')}}" alt="Loading" width="10px" height="10px"/> Loading...',
 	        nextSelector: '.pager li a',
 	        contentSelector: 'div#browse-questions',
 	        callback: function() {

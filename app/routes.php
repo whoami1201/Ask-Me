@@ -13,7 +13,7 @@
 * This method is to create an admin once.
 * Just run it once, and then remove or comment it out.
 **/
-// Route::get('create_user',function()
+// Route::get('create_admin',function()
 // {
 // 	$user = Sentry::getUserProvider()->create(array( 
 // 		'email' => 'admin@admin.com',
@@ -78,6 +78,12 @@ Route::get('browse',array(
 	'as'=>'browse',
 	'uses'=>'HomeController@getBrowse'
 	));
+
+//------RANDOM--------
+Route::get('random',array(
+    'as'=>'random',
+    'uses'=>'QuestionsController@getRandom'
+));
 
 //------QUESTION DETAILS-------
 Route::get('question/{id}/{title}', array(

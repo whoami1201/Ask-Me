@@ -57,7 +57,7 @@ $created_at = $question->created_at;
                             {{--if the question has tags, show them --}}
                             @if($question->tags!=null) 
 
-                              <div>
+                              <div class="margin-top-10">
                                 <span class="text-muted">Tags:</span> 
                                 @foreach($question->tags as $tag) 
 

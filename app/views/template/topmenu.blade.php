@@ -19,7 +19,7 @@
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li class="{{HTML::active('browse')}}">{{HTML::linkRoute('browse','Browse')}}</li>
-            <li class="{{HTML::active('random')}}"><a href="#">Random</a></li>
+            <li class="{{HTML::active('random')}}">{{HTML::linkRoute('random','Random')}}</li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

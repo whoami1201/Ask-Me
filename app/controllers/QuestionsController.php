@@ -94,34 +94,69 @@ class QuestionsController extends \BaseController {
 			
 		}
 	}
-	 /** 
-         * Details page 
-         **/ 
+	 /**
+         * Details page
+         **/
 
-         public function getDetails($id,$title) { 
+         public function getDetails($id,$title) {
 
-          //First, let's try to find the question: 
-          $question = Question::with('users','tags')->find($id); 
+          //First, let's try to find the question:
+          $question = Question::with('users','tags')->find($id);
 
-          if($question) { 
-          	
+          if($question) {
+
             //We should increase the "viewed" amount 
-            $question->update(array( 
-              'viewed' => $question->viewed+1 
-            )); 
+            $question->update(array(
+              'viewed' => $question->viewed+1
+            ));
 
-            return View::make('qa.details') 
-              ->with('title',$question->title) 
+            return View::make('qa.details')
+              ->with('title',$question->title)
               ->with('question',$question);
 
-          } else { 
+          } else {
 
-            return Redirect::route('index') 
-            ->with('error','Question not found'); 
+            return Redirect::route('index')
+            ->with('error','Question not found');
 
-          } 
+          }
 
-         } 
+         }
+    /**
+     * Details page
+     **/
+
+    public function getRandom() {
+        $maximum = Question::count();
+        if ($maximum>0) {
+            $id = rand(0, $maximum);
+
+            //First, let's try to find the question:
+            $question = Question::with('users', 'tags')->find($id);
+
+            if ($question) {
+
+                //We should increase the "viewed" amount
+                $question->update(array(
+                    'viewed' => $question->viewed + 1
+                ));
+
+                return View::make('qa.details')
+                    ->with('title', $question->title)
+                    ->with('question', $question);
+
+            } else {
+
+                return Redirect::route('index')
+                    ->with('error', 'Question not found');
+            }
+        } else {
+            return Redirect::route('index')
+                ->with('error','There is no question asked yet..');
+        }
+
+
+    }
 
 
     /** 
