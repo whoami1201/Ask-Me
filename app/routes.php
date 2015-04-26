@@ -111,7 +111,8 @@ Route::post('question/{id}/{title}',array('as'=>
       where(array('id'=>'[0-9]+','title'=>'[0-9a-zA-Z\-\_]+')); 
 
 //Admin Question Deletion 
-Route::get('question/delete/{id}',array('as'=>'  
-      delete_question','before'=>'access_check:admin',  
-      'uses'=>'QuestionsController@getDelete'))->  
-      where('id','[0-9]+'); 
+Route::get('question/delete/{id}',array(
+    'as'=>'delete_question',
+    'before'=>'user',
+    'uses'=>'QuestionsController@getDelete'))
+    ->where('id','[0-9]+');

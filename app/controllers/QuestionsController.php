@@ -102,7 +102,7 @@ class QuestionsController extends \BaseController {
 
           //First, let's try to find the question:
           $question = Question::with('users','tags','answers')->find($id);
-            // return $question;
+
           if($question) {
             //We should increase the "viewed" amount
             $question->update(array(
@@ -111,11 +111,12 @@ class QuestionsController extends \BaseController {
 
             return View::make('qa.details')
               ->with('title',$question->title)
-              ->with('question',$question);
+              ->with('question',$question)
+              ->with('answers',$question->answers_paginated);
 
           } else {
 
-            return Redirect::route('index')
+            return Redirect::route('browse')
             ->with('error','Question not found');
 
           }
@@ -126,32 +127,17 @@ class QuestionsController extends \BaseController {
      **/
 
     public function getRandom() {
-        $maximum = Question::count();
-        if ($maximum>0) {
-            $id = rand(0, $maximum);
-
-            //First, let's try to find the question:
-            $question = Question::with('users', 'tags','answers')->find($id);
-
-            if ($question) {
-
-                //We should increase the "viewed" amount
-                $question->update(array(
-                    'viewed' => $question->viewed + 1
-                ));
-
-                return View::make('qa.details')
-                    ->with('title', $question->title)
-                    ->with('question', $question);
-
-            } else {
-
-                return Redirect::route('index')
-                    ->with('error', 'Question not found');
-            }
+        // Retrieve a random question from the database
+        $question = Question::orderByRaw('RAND()')->first();
+        if ($question) {
+            // Call function getDetail in QuestionsController with necessary parameters
+            return Redirect::action('QuestionsController@getDetails',
+                array('id'=>$question->id,
+                    'title'=>Str::slug($question->title)));
         } else {
-            return Redirect::route('index')
-                ->with('error','There is no question asked yet..');
+
+            return Redirect::route('browse')
+                ->with('error', 'Question not found');
         }
 
 
@@ -219,8 +205,8 @@ class QuestionsController extends \BaseController {
 
         //We delete the question directly 
 
-        Question::delete(); 
-        return Redirect::route('index') 
+        $question->delete();
+        return Redirect::route('browse')
 
           ->with('success','Question deleted successfully!'); 
 

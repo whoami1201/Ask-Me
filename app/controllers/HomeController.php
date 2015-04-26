@@ -28,12 +28,5 @@ class HomeController extends BaseController {
     		->orderBy('id','desc')->paginate(4));
     }
 
-    public function getRandom() {
-        return View::make('qa.details')
-            ->with('title','All questions')
-            ->with('questions',Question::with('users','tags','answers')
-                ->orderBy('id','desc')->paginate(4));
-    }
-
 
 }

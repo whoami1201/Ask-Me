@@ -18,4 +18,8 @@ class Question extends Eloquent {
     public function answers() {
         return $this->hasMany('Answer','question_id');
     }
+
+    public function getAnswersPaginatedAttribute() {
+        return $this->answers()->paginate(6);
+    }
 }

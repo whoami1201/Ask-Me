@@ -12,7 +12,7 @@ $created_at = $question->created_at;
 ?> 
 <div class="row">
     <!--=================================MAIN COLUMN==================================-->
-    <div class="col-md-8">
+    <div class="col col-md-7 col-md-offset-1">
         <div class="">
 
             <div class="row well">
@@ -71,7 +71,7 @@ $created_at))}}</span></em>
                     <hr>
 
                     <div class="row mobile-fix">
-                        <div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2">
+                        <div class="col-md-12 col-sm-12">
                             <!-- View and answer count -->
                             <div class="col-md-5 col-sm-5 text-muted">
                                 <span>{{$question->viewed}} view{{$question->viewed>1?'s':''}}.</span>
@@ -87,7 +87,9 @@ $created_at))}}</span></em>
                                     <a href="#" class="text-muted margin-side-10">Share</a>
 
                                     <a href="#" class="text-muted margin-side-10">Favourite</a>
-
+                                    @if (Sentry::getUser()->id==$asker->id)
+                                        {{HTML::linkRoute('delete_question','Delete',$question->id, array('class'=>'text-danger'))}}
+                                    @endif
                                 </div>
 
                                 <!-- Sign in link for guest -->
@@ -104,7 +106,7 @@ $created_at))}}</span></em>
                     {{-- if it's a user, we will also have the answer block inside our view--}}
                     @if(Sentry::check())
                         <div class="row margin-top-10">
-                            <div class="rrepol col-md-10 col-md-offset-2" id="replyarea">
+                            <div class="rrepol col-md-12" id="replyarea">
 
                                 {{Form::open(array('route'=>array(
                                     'question_reply',
@@ -143,46 +145,52 @@ $created_at))}}</span></em>
                     </div>
 
                 </div>
-                @foreach($question->answers as $answer)
-                    <div class="row well">
-                        <div class="col-md-1 col-sm-2 col-xs-2 vote-section">
-                            <div class="text-center">
+                <div id="browse-answers">
+                    @foreach($answers as $answer)
+                        <div class="row well">
+                            <div class="col-md-1 col-sm-2 col-xs-2 vote-section">
+                                <div class="text-center">
+                                    <div class="row">
+                                        <span class="glyphicon glyphicon-chevron-up"></span>
+                                    </div>
+                                    <div class="row">
+                                        <h4 class="text-muted"><strong><?php echo rand(-5, 10);?></strong></h4>
+                                    </div>
+                                    <div class="row">
+                                        <span class="glyphicon glyphicon-chevron-down"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-11 col-sm-10 col-xs-10">
                                 <div class="row">
-                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                    <div class="col col-md-12">
+                                        {{$answer->answer}}
+                                    </div>
                                 </div>
                                 <div class="row">
-                                    <h4 class="text-muted"><strong><?php echo rand(-5, 10);?></strong></h4>
-                                </div>
-                                <div class="row">
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <div class="col col-md-12">
+                                        <p>
+                                            <em>By <a href="#">{{$answer->users->first_name.' '.$answer->users->last_name}}</a>
+                                                <span>on {{date('d M \'y',strtotime(
+    $answer->created_at))}} at {{date('H:i',strtotime(
+    $answer->created_at))}}</span></em>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-md-11 col-sm-10 col-xs-10">
-                            <div class="row">
-                                <div class="col col-md-12">
-                                    {{$answer->answer}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col col-md-12">
-                                    <p>
-                                        <em>By <a href="#">{{$answer->users->first_name.' '.$answer->users->last_name}}</a>
-                                            <span>on {{date('d M \'y',strtotime(
-$answer->created_at))}} at {{date('H:i',strtotime(
-$answer->created_at))}}</span></em>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
+                    <div class="row">
+                        {{$answers->links()}}
                     </div>
-                @endforeach
+                </div>
             @endif
         </div>
+
     </div>
 
     <!--============================RIGHT COLUMN======================================-->
-    <div class="col-md-4">
+    <div class="col-md-3">
         @include('template.col-right')
     </div>
 
@@ -210,8 +218,17 @@ $answer->created_at))}}</span></em>
             } else { 
                 $replyarea.fadeOut('fast'); 
             } 
-        }); 
+        });
 
+        $('#browse-answers').jscroll({
+            autoTrigger: false,
+            loadingHtml: '<img src="{{asset('assets/images/loading.gif')}}" alt="Loading" width="10px" height="10px"/> Loading...',
+            nextSelector: '.pager li a',
+            contentSelector: 'div#browse-answers',
+            callback: function() {
+                $('ul.pager:visible:first').hide();
+            }
+        });
     </script> 
 
     {{-- If the admin is logged in, make a confirmation to delete attempt --}} 
@@ -229,4 +246,4 @@ $answer->created_at))}}</span></em>
 
 @endif 
 
-@stop 
+@stop

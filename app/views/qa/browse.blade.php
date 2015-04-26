@@ -13,9 +13,7 @@
 
 
 
-<?php 
-
-            //Question's asker and tags info 
+<?php
 
 $asker = $question->users; 
 
