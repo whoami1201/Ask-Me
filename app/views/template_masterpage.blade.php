@@ -12,23 +12,31 @@
 	@include('template.topmenu')
 	<div class="content-wrapper">
 		<div class="container">
-			@if(Session::has('error'))
-				<div class="margin-bottom-10">
-				
-					<div class="alert alert-danger" role="alert">
-						<p class="text-center">{{ Session::get('error') }}</p>
-					</div>
-				</div>
-			@endif
+            <div class="row">
+                <div class="col col-md-12">
+                    <div class="row">
+                    @if(Session::has('error'))
+                        <div class="margin-bottom-10">
 
-			@if(Session::has('success'))
-				<div class="margin-bottom-10">
-					<div class="alert alert-success" role="alert">
-						<p class="text-center">{{ Session::get('success') }}</p>
-					</div>
-				</div>
-			@endif
-			@yield('content')
+                            <div class="alert alert-danger" role="alert">
+                                <p class="text-center">{{ Session::get('error') }}</p>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if(Session::has('success'))
+                        <div class="margin-bottom-10">
+                            <div class="alert alert-success" role="alert">
+                                <p class="text-center">{{ Session::get('success') }}</p>
+                            </div>
+                        </div>
+                    @endif
+                    </div>
+                        @yield('content')
+                </div>
+
+            </div>
+
 		</div>
 	</div>
 	<footer class="footer">
@@ -45,9 +53,10 @@
 	{{-- JavaScript files --}}
 	{{ HTML::script('assets/js/jquery-2.1.3.min.js') }}
 	{{ HTML::script('assets/js/jquery.jscroll.min.js') }}
-<!-- 	{{ HTML::script('assets/js/plugin.js') }}
+
 	{{ HTML::script('assets/js/script.js') }} -->
 	{{ HTML::script('assets/bootstrap/js/bootstrap.min.js') }}
+
 
 	{{-- Each page's custom assets (if available) will be yeiled here --}}
 	@yield('footer_assets')

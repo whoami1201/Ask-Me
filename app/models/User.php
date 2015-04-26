@@ -18,4 +18,5 @@ class User extends Cartalyst\Sentry\Users\Eloquent\User {
 	public function questions() {
 		return $this->hasMany('Question','user_id');
 	}
+
 }

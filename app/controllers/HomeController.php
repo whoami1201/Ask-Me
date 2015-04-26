@@ -24,14 +24,14 @@ class HomeController extends BaseController {
     public function getBrowse() {
     	return View::make('qa.browsee')
     	->with('title','All questions')
-    	->with('questions',Question::with('users','tags')
+    	->with('questions',Question::with('users','tags','answers')
     		->orderBy('id','desc')->paginate(4));
     }
 
     public function getRandom() {
         return View::make('qa.details')
             ->with('title','All questions')
-            ->with('questions',Question::with('users','tags')
+            ->with('questions',Question::with('users','tags','answers')
                 ->orderBy('id','desc')->paginate(4));
     }
 

@@ -43,7 +43,7 @@ class QuestionsController extends \BaseController {
 			// Check if tags column is filled, split strings, add new tag and relation
 			if (Str::length(Input::get('tags'))) {
 
-				// 'explode' all tags from commnas
+				// 'explode' all tags from commmas
 				$tags_array = explode(',', Input::get('tags'));
 
 				// Check new tag to add to database and attach to new question
@@ -101,11 +101,10 @@ class QuestionsController extends \BaseController {
          public function getDetails($id,$title) {
 
           //First, let's try to find the question:
-          $question = Question::with('users','tags')->find($id);
-
+          $question = Question::with('users','tags','answers')->find($id);
+            // return $question;
           if($question) {
-
-            //We should increase the "viewed" amount 
+            //We should increase the "viewed" amount
             $question->update(array(
               'viewed' => $question->viewed+1
             ));
@@ -123,7 +122,7 @@ class QuestionsController extends \BaseController {
 
          }
     /**
-     * Details page
+     * Details page of a random question
      **/
 
     public function getRandom() {
@@ -132,7 +131,7 @@ class QuestionsController extends \BaseController {
             $id = rand(0, $maximum);
 
             //First, let's try to find the question:
-            $question = Question::with('users', 'tags')->find($id);
+            $question = Question::with('users', 'tags','answers')->find($id);
 
             if ($question) {
 

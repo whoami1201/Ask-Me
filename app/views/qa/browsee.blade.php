@@ -4,7 +4,7 @@
 
 @section('content')
 
-	<div class="row">
+    <div class="row">
 		<div class="col col-md-8">
 			<div class="well">
 				<h1>{{$title}}</h1>
@@ -13,7 +13,15 @@
 					@if(count($questions))
 
 						@foreach($questions as $question)
+                            <?php
 
+                            $asker = $question->users;
+
+                            $tags = $question->tags;
+
+                            $created_at = $question->created_at;
+
+                            ?>
 							<div class="row well" >
 								<div class="col-md-1 col-sm-1 col-xs-1">
 									<div class="text-center">
@@ -42,8 +50,12 @@
 									</div>
 									<div class="row">
 										<div class="col-md-12">
-										<p>By <a href="#">{{$question->users->first_name}}</a>
-										around {{date('m/d/Y H:i:s',strtotime($question->created_at))}}</p>
+                                            <p>
+                                                <em>Asked by <a href="#">{{$asker->first_name.' '.$asker->last_name}}</a>
+                                                    <span>on {{date('d M \'y',strtotime(
+$created_at))}} at {{date('H:i',strtotime(
+$created_at))}}</span></em>
+                                            </p>
 										</div>
 									</div>
 								</div>
@@ -56,7 +68,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col col-md-3">
+		<div class="col col-md-4">
 			@include('template.col-right')
 		</div>
 	</div>
