@@ -4,7 +4,7 @@
 	<title> {{ isset($title) ? $title.' | ' : '' }} Laravel Ask Me </title>
 	<link rel="shortcut icon" href="{{{ asset('assets/images/rubik.ico') }}}">
 	<link href="{{ asset('assets/css/reset.css')}}" rel="stylesheet">
-	<link href="{{ asset('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{ asset('assets/bootstrap/css/bootstrap-custom.min.css')}}" rel="stylesheet">
 	{{ HTML::style('assets/css/style.css') }}
 </head>
 <body>
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col col-md-12">
                     <div class="row">
-                        <div class="col col-md-10 col-sm-12">
+                        <div class="col col-md-10 col-sm-12 col-md-offset-1">
                             @if(Session::has('error'))
                                 <div class="margin-bottom-10">
 

@@ -182,16 +182,15 @@ class QuestionsController extends \BaseController {
         } 
       } else { 
 
-        return Redirect::route('index'); 
+        return Redirect::route('browse')
+            ->with('error', 'Something went wrong, please try again later.');
 
       } 
 
      }
      /** 
      * Deletes the question 
-     **/ 
-
-
+     **/
 
     public function getDelete($id) { 
 

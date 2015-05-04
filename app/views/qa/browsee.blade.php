@@ -24,15 +24,21 @@
                             ?>
                             <div class="row well" >
                                 <div class="col-md-1 col-sm-1 col-xs-1">
-                                    <div class="text-center">
+                                    <div class="text-center vote-section">
                                         <div class="row">
-                                            <span class="glyphicon glyphicon-chevron-up"></span>
+                                            {{HTML::linkRoute('vote','',array('up',$question->id),
+                                            array('class'=>'like glyphicon glyphicon-chevron-up',
+                                            'title'=>'Upvote'
+                                            ))}}
                                         </div>
                                         <div class="row">
-                                            <h4 class="text-muted"><?php echo rand(-5, 10);?></h4>
+                                            <h4 class="text-muted vote-count">{{$question->votes}}</h4>
                                         </div>
                                         <div class="row">
-                                            <span class="glyphicon glyphicon-chevron-down"></span>
+                                            {{HTML::linkRoute('vote','',array('down',$question->id),
+                                            array('class'=>'dislike glyphicon glyphicon-chevron-down',
+                                            'title'=>'Downvote'
+                                            ))}}
                                         </div>
                                     </div>
                                 </div>
@@ -89,4 +95,5 @@ $created_at))}}</span></em>
             }
         });
 	</script>
+    {{ HTML::script('assets/js/handle_like.js') }}
 @stop

@@ -11,6 +11,9 @@ class Question extends Eloquent {
 		return $this->belongsTo('User','user_id');
 	}
 
+    /**
+     * @return mixed
+     */
 	public function tags() {
 		return $this->belongsToMany('Tag','question_tags')->withTimestamps();
 	}
