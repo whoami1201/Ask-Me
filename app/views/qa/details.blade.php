@@ -35,16 +35,22 @@ $created_at))}}</span></em>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-2 col-sm-2 col-xs-2 vote-section">
-                            <div class="text-center">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <div class="text-center vote-section">
                                 <div class="row">
-                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                    {{HTML::linkRoute('vote','',array('up',$question->id),
+                                    array('class'=>'like glyphicon glyphicon-chevron-up',
+                                    'title'=>'Upvote'
+                                    ))}}
                                 </div>
                                 <div class="row">
-                                    <h4 class="text-muted"><strong><?php echo rand(-5, 10);?></strong></h4>
+                                    <h4 class="text-muted vote-count">{{$question->votes}}</h4>
                                 </div>
                                 <div class="row">
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                    {{HTML::linkRoute('vote','',array('down',$question->id),
+                                    array('class'=>'dislike glyphicon glyphicon-chevron-down',
+                                    'title'=>'Downvote'
+                                    ))}}
                                 </div>
                             </div>
                         </div>
@@ -60,7 +66,7 @@ $created_at))}}</span></em>
                                 <span class="text-muted">Tags:</span> 
                                 @foreach($question->tags as $tag) 
 
-                                  <span>{{HTML::linkRoute('tagged',$tag->tag,$tag->tagFriendly)}}</span> 
+                                  <span>{{HTML::linkRoute('tagged',$tag->tag,$tag->tag_friendly)}}</span>
 
                                 @endforeach 
                               </div> 
@@ -148,13 +154,13 @@ $created_at))}}</span></em>
                 <div id="browse-answers">
                     @foreach($answers as $answer)
                         <div class="row well">
-                            <div class="col-md-1 col-sm-2 col-xs-2 vote-section">
-                                <div class="text-center">
+                            <div class="col col-md-1 col-sm-2 col-xs-2">
+                                <div class="text-center vote-section">
                                     <div class="row">
                                         <span class="glyphicon glyphicon-chevron-up"></span>
                                     </div>
                                     <div class="row">
-                                        <h4 class="text-muted"><strong><?php echo rand(-5, 10);?></strong></h4>
+                                        <h4 class="text-muted vote-count">0</h4>
                                     </div>
                                     <div class="row">
                                         <span class="glyphicon glyphicon-chevron-down"></span>

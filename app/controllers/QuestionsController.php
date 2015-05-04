@@ -198,8 +198,6 @@ class QuestionsController extends \BaseController {
 
       $question = Question::find($id); 
 
-
-
       if($question) { 
 
         //We delete the question directly 
@@ -221,14 +219,24 @@ class QuestionsController extends \BaseController {
 
 
 	/**
-	 * Display the specified resource.
+	 * Show questions with specific tab
 	 *
-	 * @param  int  $id
+	 * @param  string $tag
 	 * @return Response
 	 */
-	public function show($id)
+	public function getTaggedWith($tag)
 	{
-		//
+		$tag = Tag::where('tag_friendly',$tag)->first();
+
+        if($tag) {
+            return View::make('qa.browsee')
+                ->with('title','Questions tagged with: '.$tag->tag)
+                ->with('questions',$tag->questions()
+                    ->with('users','tags','answers')->simplePaginate(4));
+        } else {
+            return Redirect::route('qa.browsee')
+                ->with('error','Tag not found');
+        }
 	}
 
 

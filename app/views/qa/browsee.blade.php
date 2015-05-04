@@ -22,7 +22,7 @@
                             $created_at = $question->created_at;
 
                             ?>
-                            <div class="row well" >
+                            <div class="row well question-bg" >
                                 <div class="col-md-1 col-sm-1 col-xs-1">
                                     <div class="text-center vote-section">
                                         <div class="row">
