@@ -102,7 +102,11 @@ Route::get('question/vote/{direction}/{id}',array('as'=>
 //Question tags page 
 Route::get('question/tagged/{tag}',array('as'=>  
       'tagged','uses'=>'QuestionsController@getTaggedWith'))->  
-      where('tag','[0-9a-zA-Z\-\_]+'); 
+      where('tag','[0-9a-zA-Z\-\_]+');
+
+Route::get('question/category/{category}',array('as'=>
+    'category_show','uses'=>'QuestionsController@getCategory'))->
+    where('category','[0-9a-zA-Z\-\_]+');
 
 //Reply Question
 Route::post('question/{id}/{title}',array('as'=>  

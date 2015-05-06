@@ -31,7 +31,8 @@ class QuestionsController extends \BaseController {
 			$create = Question::create(array(
 				'user_id' => Sentry::getUser()->id,
 				'title' => Input::get('title'),
-				'question' => Input::get('question')
+				'question' => Input::get('question'),
+                'category_id' => Input::get('category')
 				));
 
 			// Get the insert id of question
@@ -101,14 +102,13 @@ class QuestionsController extends \BaseController {
          public function getDetails($id,$title) {
 
           //First, let's try to find the question:
-          $question = Question::with('users','tags','answers')->find($id);
+          $question = Question::with('users','tags','answers','categories')->find($id);
 
           if($question) {
             //We should increase the "viewed" amount
             $question->update(array(
               'viewed' => $question->viewed+1
             ));
-
             return View::make('qa.details')
               ->with('title',$question->title)
               ->with('question',$question)
@@ -240,16 +240,25 @@ class QuestionsController extends \BaseController {
 	}
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    /**
+     * Show questions with specific tab
+     *
+     * @param  string $category
+     * @return Response
+     */
+    public function getCategory($category)
+    {
+        $category = Category::where('name',$category)->first();
+        if($category) {
+            return View::make('qa.browsee')
+                ->with('title','Category: '.$category->name)
+                ->with('questions',$category->questions()
+                    ->with('users','tags','answers')->simplePaginate(4));
+        } else {
+            return Redirect::route('qa.browsee')
+                ->with('error','Category not found');
+        }
+    }
 
 
 	/**

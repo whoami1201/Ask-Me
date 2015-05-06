@@ -2,10 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-md-2">
-			@include('template.col-left')
-		</div>
-		<div class="col-md-7">
+		<div class="col col-md-7 col-md-offset-1">
 			<div class="well">
 				<h1>Ask a question</h1>
 				<p>Note: If you think your question's been answered correctly, please don't forget to mark the answer as "correct".</p>
@@ -18,9 +15,20 @@
 				    	'placeholder'=>'By the way, which one\'s Pink?'
 				    	))}}
 				</div>
-			    <div class="form-group">
+                <div class="form-group">
+                    <label class="control-label">Choose a category </label>
+                    <br>
+                    {{Form::select('category', array(
+                        '1' => 'Computers',
+                        '2' => 'Family',
+                        '3' => 'Animals',
+                        '4' => 'Movies',
+                        '5' => 'Books',
+                        '6' => 'Misc'
+                        ));}}
+                </div>
+                <div class="form-group">
 				    <label for="asknew-content" class="control-label">Explain your question</label>
-				    <p class="help-block"><strong>Hint: </strong>Basic HTML is accepted.</p>	
 				    {{Form::textarea('question', Input::old('question'), array(
 				    	'class' => 'fullinput form-control',
 				    	'id' => 'asknew-content'

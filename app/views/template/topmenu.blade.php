@@ -23,13 +23,12 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Category <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
+                    <li>{{HTML::linkRoute('category_show','Computers','computers')}}</li>
+                    <li>{{HTML::linkRoute('category_show','Family','family')}}</li>
+                    <li>{{HTML::linkRoute('category_show','Books','books')}}</li>
+                    <li>{{HTML::linkRoute('category_show','Animals','animals')}}</li>
+                    <li>{{HTML::linkRoute('category_show','Movies','movies')}}</li>
+                    <li>{{HTML::linkRoute('category_show','Misc','misc')}}</li>
               </ul>
             </li>
         </ul>

@@ -39,6 +39,7 @@ class CreateQuestionsTable extends Migration {
 			// get asking time from created_at column
 			$table->timestamps();
 		});
+
 	}
 
 	/**

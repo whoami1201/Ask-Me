@@ -29,7 +29,7 @@ $created_at = $question->created_at;
                             <em>Asked by <a href="#">{{$asker->first_name.' '.$asker->last_name}}</a>
                             <span>on {{date('d M \'y',strtotime(
 $created_at))}} at {{date('H:i',strtotime(
-$created_at))}}</span></em>
+$created_at))}}</span> in {{HTML::linkRoute('category_show',$question->categories->name,$question->categories->name)}}</em>
                         </p>
                         </div>
                     </div>

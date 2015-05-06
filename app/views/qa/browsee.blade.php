@@ -95,5 +95,7 @@ $created_at))}}</span></em>
             }
         });
 	</script>
+    @if (Sentry::check())
     {{ HTML::script('assets/js/handle_like.js') }}
+    @endif
 @stop
