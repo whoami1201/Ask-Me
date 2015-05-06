@@ -1,7 +1,29 @@
 <?php
-
+use Nicolaslopezj\Searchable\SearchableTrait;
 class Question extends Eloquent {
-	protected $fillable = array('title', 'user_id', 'question','viewed','answered','votes');
+	public $fillable = array('title', 'user_id', 'question','viewed','answered','votes');
+
+
+    use SearchableTrait;
+
+    /**
+     * Searchable rules.
+     *
+     * @var array
+     */
+    public $searchable = [
+        'columns' => [
+            'title' => 10,
+            'question' => 10,
+            'id' => 2
+        ]
+    ];
+
+
+
+
+
+
 	public static $add_rules = array(
 		'title'=>'required|min:6',
 		'question'=>'required|min:10'

@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Answer' => $baseDir . '/app/models/Answer.php',
+    'AnswersController' => $baseDir . '/app/controllers/AnswersController.php',
     'AuthController' => $baseDir . '/app/controllers/AuthController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
@@ -85,6 +87,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateAnswersTable' => $baseDir . '/app/database/migrations/2015_04_17_235741_create_answers_table.php',
     'CreateQuestionTagsTable' => $baseDir . '/app/database/migrations/2015_04_01_131509_create_question_tags_table.php',
     'CreateQuestionsTable' => $baseDir . '/app/database/migrations/2015_04_01_080546_create_questions_table.php',
     'CreateTagsTable' => $baseDir . '/app/database/migrations/2015_04_01_100006_create_tags_table.php',
@@ -569,6 +572,7 @@ return array(
     'Net_SFTP_Stream' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Net/SFTP/Stream.php',
     'Net_SSH1' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Net/SSH1.php',
     'Net_SSH2' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Net/SSH2.php',
+    'Nicolaslopezj\\Searchable\\SearchableTrait' => $vendorDir . '/nicolaslopezj/searchable/src/SearchableTrait.php',
     'Normalizer' => $vendorDir . '/patchwork/utf8/class/Normalizer.php',
     'PHPParser_Autoloader' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Autoloader.php',
     'PHPParser_Builder' => $vendorDir . '/nikic/php-parser/lib/PHPParser/Builder.php',
@@ -1030,6 +1034,8 @@ return array(
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
     'Question' => $baseDir . '/app/models/Question.php',
+    'QuestionsController' => $baseDir . '/app/controllers/QuestionsController.php',
+    'SearchController' => $baseDir . '/app/controllers/SearchController.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
     'Stack\\Builder' => $vendorDir . '/stack/builder/src/Stack/Builder.php',
     'Stack\\StackedHttpKernel' => $vendorDir . '/stack/builder/src/Stack/StackedHttpKernel.php',

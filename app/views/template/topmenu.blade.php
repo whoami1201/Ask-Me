@@ -33,9 +33,9 @@
               </ul>
             </li>
         </ul>
-        <form class="navbar-form navbar-left" role="search">
+        <form id="search" class="navbar-form navbar-left" role="search" method="get" action="/Ask-Me/public/search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" aria-describedby="addon1">
+                <input type="text" name="keywords" class="form-control" placeholder="Search" aria-describedby="addon1">
                 <span class="input-group-addon" id="addon1">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                 </span>

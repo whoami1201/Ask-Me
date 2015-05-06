@@ -116,3 +116,8 @@ Route::get('question/delete/{id}',array(
     'before'=>'user',
     'uses'=>'QuestionsController@getDelete'))
     ->where('id','[0-9]+');
+
+//Search Question
+Route::get('search/',array(
+    'as'=> 'search_questions',
+    'uses'=>'SearchController@searchQuestions'));

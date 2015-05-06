@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'ask_me',
+			'database'  => 'ask-me',
 			'username'  => 'root',
-			'password'  => 'asdqwe',
+			'password'  => 'ditnhau',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
